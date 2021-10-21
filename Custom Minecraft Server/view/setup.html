@@ -35,7 +35,7 @@
     <link href="styles/static/static.navbar.css" rel="stylesheet" type="text/css" />
     <link href="styles/static/static.loader.css" rel="stylesheet" type="text/css" />
 
-    <link href="css/main.css" type="text/css" rel="stylesheet" />
+    <link href="styles/setup.css" type="text/css" rel="stylesheet" />
 
     <link href="data/fonts/index.css" rel="stylesheet" type="text/css" />
 
@@ -100,8 +100,83 @@
 
             </div>
         </div>
+
+        <div class="app-contents">
+
+            <!-- Centered wrapper -->
+            <div class="content-wrapper">
+
+                <h1 class="big-title">Before we start, let's setup <strong>some things</strong>.</h1>
+
+                <div class="horizontal-line"></div>
+
+                <div class="table-wrapper">
+
+                    <div class="table-container" data-title="Server configurations">
+                        <div class="table-navbar">
+                            <div class="table-title">
+                                <span>Server configurations</span>
+                            </div>
+                            <div class="table-togglebutton active"></div>
+                        </div>
+                        <div class="table-content">
+                            <h5>Settings to help the app know where the files are located. Items marked with a * are <strong>required</strong> to fill in. These can always be changed in the future.</h5>
+
+                            <div class="table-item">
+                                <div class="item-title">
+                                    <span>Server path *</span>
+                                </div>
+                                <div class="item-input" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
+                            </div>
+                            <div class="table-item">
+                                <div class="item-title">
+                                    <span>Server name</span>
+                                </div>
+                                <div class="item-input" data-placeholder="Enter name here." contenteditable="true" spellcheck="false"></div>
+                            </div>
+                            <div class="table-item">
+                                <div class="item-title">
+                                    <span>Server owner</span>
+                                </div>
+                                <div class="item-input" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false"></div>
+                            </div>
+                            <div class="table-item">
+                                <div class="item-title" title="MOTD stands for 'Match of the Day', displaying a nice description about your server.">
+                                    <span>Server MOTD</span>
+                                </div>
+                                <div class="item-input" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false">A server made by Babah Gee's Custom Minecraft Server.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-container" data-title="Application settings">
+                        <div class="table-navbar">
+                            <div class="table-title">
+                                <span>Application settings</span>
+                            </div>
+                            <div class="table-togglebutton active"></div>
+                        </div>
+                        <div class="table-content">
+                            <h5>Applications settings you may wanna change. Items marked with a * are <strong>required</strong> to fill in. These can always be changed in the future.</h5>
+
+                            <div class="table-item">
+                                <div class="item-title">
+                                    <span>Output path</span>
+                                </div>
+                                <div class="item-input" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
     <script src="./js/static/static.titlebar.js" type="module"></script>
+    <script src="js/setup.js" type="module"></script>
 </body>
 </html>

@@ -29,8 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="data\ApplicationData.json" />
+    <Content Include="data\templates\ApplicationData.json" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="server\appdata.js" />
+    <Content Include="server\ipc.js" />
     <Content Include="view\data\fonts\atures.ttf" />
     <Content Include="view\data\fonts\black.ttf" />
     <Content Include="view\data\fonts\Chopsic-K6Dp.ttf" />
@@ -112,6 +116,8 @@
     <Content Include="view\data\images\wallpaper_abstract.jpg" />
     <Content Include="view\data\images\wallpaper_abstract_white.jpg" />
     <Content Include="view\index.html" />
+    <Content Include="view\js\setup.js" />
+    <Content Include="view\js\static\static.titlebar.js" />
     <Content Include="view\libs\%40fortawesome\fontawesome-free\css\all.css" />
     <Content Include="view\libs\%40fortawesome\fontawesome-free\css\all.min.css" />
     <Content Include="view\libs\%40fortawesome\fontawesome-free\css\brands.css" />
@@ -583,18 +589,25 @@
     <Content Include="view\libs\%40fortawesome\fontawesome-free\svgs\brands\typo3.svg" />
     <Content Include="view\libs\%40fortawesome\fontawesome-free\svgs\brands\uber.svg" />
     <Content Include="view\libs\%40fortawesome\fontawesome-free\svgs\brands\ubuntu.svg" />
+    <Content Include="view\setup.html" />
+    <Content Include="view\styles\setup.css" />
     <Content Include="view\styles\static\static.essentials.css" />
     <Content Include="view\styles\static\static.loader.css" />
     <Content Include="view\styles\static\static.navbar.css" />
     <Content Include="view\styles\static\static.titlebar.css" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="data\" />
+    <Folder Include="data\logs\" />
+    <Folder Include="data\templates\" />
+    <Folder Include="server\" />
     <Folder Include="view\" />
     <Folder Include="view\data\" />
     <Folder Include="view\data\fonts\" />
     <Folder Include="view\data\icons\" />
     <Folder Include="view\data\images\" />
     <Folder Include="view\js\" />
+    <Folder Include="view\js\static\" />
     <Folder Include="view\libs\" />
     <Folder Include="view\libs\%40fortawesome\" />
     <Folder Include="view\libs\%40fortawesome\fontawesome-free\" />

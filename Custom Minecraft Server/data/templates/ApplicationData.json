@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "developer": "Babah Gee",
+  "socials": {
+    "discord": "https://discord.gg/HQFWguAEVP",
+    "instagram": null
+  },
+  "modules": [],
+  "minecraft": {
+    "path": null,
+    "output": null
+  },
+  "server": {
+    "path": null,
+    "output": null
+  }
+}

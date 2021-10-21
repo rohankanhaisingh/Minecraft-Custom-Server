@@ -5,6 +5,22 @@ a, abbr, acronym, address, applet, b, big, blockquote, body, button, caption, ce
     outline: 0;
     vertical-align: baseline;
     background: 0 0;
+
+}
+
+h1, h2, h3 {
+    font-family: Montserrat;
+    color: #fff;
+}
+
+h4, h5, h6 {
+    font-family: RobotoLight;
+    color: #fff;
+    font-weight: normal;
+}
+
+h4 strong, h5 strong, h6 strong {
+    color: #ff6161;
 }
 
 ::-webkit-scrollbar {
@@ -95,4 +111,19 @@ a, abbr, acronym, address, applet, b, big, blockquote, body, button, caption, ce
         -webkit-transform: translateY(0px);
         transform: translateY(0px);
     }
+}
+
+
+.app-contents {
+    width: 100vw;
+    height: calc(100vh - 60px);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.content-wrapper {
+    width: 80%;
+    height: auto;
+    padding: 20px 0px;
+    margin: auto;
 }

@@ -20,6 +20,13 @@
         background: #161616;
     }
 
+.app-draggable {
+    width: calc(100% - 140px);
+    height: 100%;
+    float: left;
+    -webkit-app-region: drag !important;
+}
+
 .app-titlebar-title {
     width: auto;
     height: auto;
@@ -66,3 +73,127 @@
     height: auto;
     float: right;
 }
+
+.app-titlebar-controls-button {
+    width: 8px;
+    height: 8px;
+    content: "";
+    position: relative;
+    padding: 11px;
+    float: right;
+    background: none;
+}
+
+    .app-titlebar-controls-button:before, .app-titlebar-controls-button:after {
+        content: "";
+        position: absolute;
+        background: #fff;
+    }
+
+    .app-titlebar-controls-button.button-close:before, .app-titlebar-controls-button.button-close:after {
+        width: 50%;
+        height: 1px;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+    }
+
+    .app-titlebar-controls-button.button-close:before {
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+
+    .app-titlebar-controls-button.button-close:after {
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -o-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .app-titlebar-controls-button.button-full:before {
+        width: 30%;
+        height: 30%;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        background: none;
+        border: 1px solid #fff;
+    }
+
+    .app-titlebar-controls-button.button-minimize:before {
+        width: 30%;
+        height: 1px;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+    }
+/*
+    .app-titlebar-controls-button:hover {
+        background: #efefef;
+    }*/
+
+    .app-titlebar-controls-button.button-close:hover {
+        background: #ff7878;
+    }
+
+        .app-titlebar-controls-button.button-close:hover:before, .app-titlebar-controls-button.button-close:hover:after {
+            background: #000;
+        }
+
+.app-titlebar-quicklinks {
+    width: calc(100% - (30% + 20px));
+    height: 100%;
+    float: left;
+    position: relative;
+    content: "";
+    margin-left: 20px;
+    white-space: nowrap;
+    user-select: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+    .app-titlebar-quicklinks:before {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background: linear-gradient(to right, transparent, transparent, #161616);
+    }
+
+.quicklinks-link {
+    width: auto;
+    height: auto;
+    background: none;
+    display: inline-block;
+    padding: 3px 15px;
+    border-radius: 30px;
+    text-align: center;
+    margin-top: 4px;
+    border: 1px solid #444;
+    margin-right: 10px;
+    -moz-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    -webkit-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+}
+
+    .quicklinks-link span {
+        font-family: RobotoLight;
+        font-size: 10px;
+        color: #fff;
+        display: block;
+        user-select: none;
+    }
+
+    .quicklinks-link:hover {
+        background: transparent;
+        border: 1px solid transparent;
+        box-shadow: 0px 1px 10px #000;
+    }
