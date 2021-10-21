@@ -1,0 +1,68 @@
+.app-titlebar {
+    width: 100vw;
+    height: 60px;
+    background: #1a1a1a;
+}
+
+.app-titlebar .layer {
+    width: 100%;
+    height: 30px;
+    position: relative;
+    content: "";
+}
+
+
+    .app-titlebar .layer-1 {
+        background: #101010;
+    }
+
+    .app-titlebar .layer-2 {
+        background: #161616;
+    }
+
+.app-titlebar-title {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+    .app-titlebar-title span {
+        font-family: Montserrat;
+        color: #fff;
+        font-size: 10px;
+        text-transform: uppercase;
+    }
+
+.app-titlebar-vl {
+    width: 1px;
+    height: 15px;
+    float: left;
+    background: #474747;
+    margin: 8px 20px;
+}
+
+.app-titlebar-appversion {
+    width: auto;
+    height: auto;
+    float: left;
+    background: #1c1c1c;
+    padding: 5px 10px;
+    border-radius: 30px;
+    margin-top: 3px;
+}
+
+    .app-titlebar-appversion span {
+        font-family: RobotoLight;
+        color: #fff;
+        font-size: 10px;
+        display: table;
+        /* margin-top: -23px; */
+    }
+
+.app-titlebar-controls {
+    width: auto;
+    height: auto;
+    float: right;
+}
