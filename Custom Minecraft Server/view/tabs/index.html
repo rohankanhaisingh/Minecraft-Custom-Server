@@ -30,14 +30,16 @@
 
     <title>Minecraft: Custom Server</title>
 
-    <link href="styles/static/static.essentials.css" rel="stylesheet" type="text/css" />
-    <link href="styles/static/static.titlebar.css" rel="stylesheet" type="text/css" />
-    <link href="styles/static/static.navbar.css" rel="stylesheet" type="text/css" />
-    <link href="styles/static/static.loader.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.essentials.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.titlebar.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.navbar.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.loader.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.tabs.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.contentloader.css" rel="stylesheet" type="text/css" />
 
-    <link href="css/main.css" type="text/css" rel="stylesheet" />
+    <link href="../styles/tabs/main.css" type="text/css" rel="stylesheet" />
 
-    <link href="data/fonts/index.css" rel="stylesheet" type="text/css" />
+    <link href="../data/fonts/index.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
@@ -100,8 +102,67 @@
 
             </div>
         </div>
+
+        <div class="app-contents">
+
+            <div class="app-contentloader visible">
+                <div class="container">
+
+                    <canvas class="contentloader-canvas"></canvas>
+
+                    <div class="contentloader-spinner"></div>
+
+                </div>
+            </div>
+
+            <div class="app-navigation">
+                <div class="navigation-links">
+
+                    <div class="navigation-link active" data-title="Server overview">
+                        <img src="../data/icons/icon_power.png" alt="Server" />
+                    </div>
+                    <div class="navigation-link" data-title="Options">
+                        <img src="../data/icons/icon_sliders.png" alt="Options" />
+                    </div>
+                    <div class="navigation-link" data-title="Terminal">
+                        <img src="../data/icons/icon_terminal.png" alt="Terminal" />
+                    </div>
+                    <div class="navigation-link" data-title="Player manager">
+                        <img src="../data/icons/icon_persons.png" alt="Player manager" />
+                    </div>
+                    <div class="navigation-link" data-title="Server files">
+                        <img src="../data/icons/icon_files.png" alt="Server files" />
+                    </div>
+                    <div class="navigation-link" data-title="Settings">
+                        <img src="../data/icons/icon_settings.png" alt="Settings" />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="app-tabcontent">
+
+                <div class="app-tabcontent-header">
+
+                    <h1 class="tab-name">Server overview</h1>
+
+                    <h4 class="tab-description">This is the overview tab. Here you can change general settings like the name of your server. Start your server and make it public by using Ngrok or your forwared IP.</h4>
+
+                </div>
+
+                <h1 contenteditable="true" class="server-name" spellcheck="false">Ayo! The pizza here!</h1>
+
+                <div class="app-tabcontent-hl"></div>
+
+            </div>
+
+        </div>
+
     </div>
 
-    <script src="./js/static/static.titlebar.js" type="module"></script>
+    <script src="../js/static/static.contentloader.js" type="module"></script>
+    <script src="../js/static/static.titlebar.js" type="module"></script>
+
+    <script src="../js/tabs/main.js" type="module"></script>
 </body>
 </html>

@@ -34,6 +34,8 @@
     <link href="styles/static/static.titlebar.css" rel="stylesheet" type="text/css" />
     <link href="styles/static/static.navbar.css" rel="stylesheet" type="text/css" />
     <link href="styles/static/static.loader.css" rel="stylesheet" type="text/css" />
+    <link href="styles/static/static.footer.css" rel="stylesheet" type="text/css" />
+    <link href="styles/static/static.contentloader.css" rel="stylesheet" type="text/css" />
 
     <link href="styles/setup.css" type="text/css" rel="stylesheet" />
 
@@ -103,6 +105,16 @@
 
         <div class="app-contents">
 
+            <div class="app-contentloader">
+                <div class="container">
+
+                    <canvas class="contentloader-canvas"></canvas>
+
+                    <div class="contentloader-spinner"></div>
+
+                </div>
+            </div>
+
             <!-- Centered wrapper -->
             <div class="content-wrapper">
 
@@ -126,25 +138,25 @@
                                 <div class="item-title">
                                     <span>Server path *</span>
                                 </div>
-                                <div class="item-input" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
+                                <div class="item-input" data-id="server:path" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
                             </div>
                             <div class="table-item">
                                 <div class="item-title">
                                     <span>Server name</span>
                                 </div>
-                                <div class="item-input" data-placeholder="Enter name here." contenteditable="true" spellcheck="false"></div>
+                                <div class="item-input" data-id="server:name" data-placeholder="Enter name here." contenteditable="true" spellcheck="false"></div>
                             </div>
                             <div class="table-item">
                                 <div class="item-title">
                                     <span>Server owner</span>
                                 </div>
-                                <div class="item-input" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false"></div>
+                                <div class="item-input" data-id="server:owner" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false"></div>
                             </div>
                             <div class="table-item">
                                 <div class="item-title" title="MOTD stands for 'Match of the Day', displaying a nice description about your server.">
                                     <span>Server MOTD</span>
                                 </div>
-                                <div class="item-input" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false">A server made by Babah Gee's Custom Minecraft Server.</div>
+                                <div class="item-input" data-id="server:motd" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false">A server made by Babah Gee's Custom Minecraft Server.</div>
                             </div>
                         </div>
                     </div>
@@ -163,13 +175,114 @@
                                 <div class="item-title">
                                     <span>Output path</span>
                                 </div>
-                                <div class="item-input" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
+                                <div class="item-input" data-id="app:outputpath" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
                             </div>
                         </div>
                     </div>
 
                 </div>
 
+                <div class="setup-buttonwrapper">
+                    <div class="container">
+
+                        <div class="setup-acceptbutton">
+                            <span>Create</span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="app-footer">
+                <div class="container">
+                    <div class="footer-grid">
+
+                        <div class="footer-grid-column">
+                            <div class="grid-column-title">
+                                <span>Minecraft: Custom Server</span>
+                            </div>
+
+                            <h4 class="grid-column-desc">Pre alpha: version 0.0.1</h4>
+
+                            <div class="grid-column-hl"></div>
+
+                            <div class="grid-column-links">
+
+                                <a href="https://discord.gg/HQFWguAEVP" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Support server</span>
+                                    </div>
+                                </a>
+                                <a href="https://github.com/babahgee/Minecraft-Custom-Server" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Github repository</span>
+                                    </div>
+                                </a>
+                                <a href="https://github.com/babahgee/Minecraft-Custom-Server" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Packaged Minecraft Server</span>
+                                    </div>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                        <div class="footer-grid-column">
+
+                            <div class="grid-column-title">
+                                <span>Software</span>
+                            </div>
+
+                            <h4 class="grid-column-desc">All of this is open source. Credits to the developers who made the software I used.</h4>
+
+                            <div class="grid-column-hl"></div>
+
+                            <div class="grid-column-links">
+
+                                <a href="https://www.electronjs.org/" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Electron</span>
+                                    </div>
+                                </a>
+                                <a href="https://ngrok.com/" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Ngrok</span>
+                                    </div>
+                                </a>
+                                <a href="https://fontawesome.com/" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Font Awesome</span>
+                                    </div>
+                                </a>
+                                <a href="https://fontawesome.com/" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Express</span>
+                                    </div>
+                                </a>
+                                <a href="https://github.com/PrismarineJS/mineflayer" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>MineFlayer</span>
+                                    </div>
+                                </a> 
+                                <a href="https://ci.md-5.net/job/BungeeCord/" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>BungeeCord</span>
+                                    </div>
+                                </a>
+                                <a href="https://hub.spigotmc.org/jenkins/job/BuildTools/" target="_blank">
+                                    <div class="grid-column-link">
+                                        <span>Spigot</span>
+                                    </div>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -177,6 +290,8 @@
     </div>
 
     <script src="./js/static/static.titlebar.js" type="module"></script>
+    <script src="./js/static/static.contentloader.js" type="module"></script>
+
     <script src="js/setup.js" type="module"></script>
 </body>
 </html>

@@ -39,6 +39,7 @@ function createUserDataFileTemplate() {
     return templateFile;
 }
 
+/* ========== Public functions ========== */
 function initialize() {
 
     const folderExists = checkFolderExistance();
@@ -52,7 +53,29 @@ function initialize() {
     return JSON.parse(configFile);
 }
 
+function overWriteData(newData, callback) {
+
+    const data = initialize();
+
+    for (let key in newData) {
+
+        if (data[key] !== newData[key]) {
+            data[key] = newData[key];
+        }
+
+    }
+
+    fs.writeFileSync(path.join(appDataFolder, applicationName, "Application Data", "configuration.json"), JSON.stringify(data, null, 2), { encoding: "utf-8" });
+
+    if (typeof callback == "function") {
+        callback(data);
+    }
+
+    return data;
+}
+
 
 module.exports = {
-    initialize: initialize
+    initialize: initialize,
+    overWriteData: overWriteData
 }

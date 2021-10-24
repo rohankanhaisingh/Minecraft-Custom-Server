@@ -12,6 +12,8 @@
   },
   "server": {
     "path": null,
+    "name": null,
+    "owner": null,
     "output": null
   }
 }

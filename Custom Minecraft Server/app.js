@@ -9,6 +9,7 @@ const url = require("url"),
 
 const { initialize } = require("./server/appdata");
 const { handle } = require("./server/ipc");
+const { listen } = require("./server/socketServer");
 
 process.env.SOCKET = 8000;
 
@@ -18,7 +19,7 @@ const { app, BrowserWindow, ipcMain, dialog } = electron;
 
 const parsedAppData = initialize();
 
-let mainWindow;
+let mainWindow, activeClient;
 
 app.once("ready", function () {
 
@@ -41,13 +42,16 @@ app.once("ready", function () {
         }
     });
 
+    handle(mainWindow);
+
+    io.sockets.on("connection", function (socket) {
+
+        activeClient = socket;
+
+        listen(socket, mainWindow);
+    });
+
     mainWindow.webContents.once("dom-ready", function () {
-
-        handle(mainWindow);
-
-        io.sockets.on("connection", function (socket) {
-
-        });
 
     });
 
@@ -69,7 +73,7 @@ app.once("ready", function () {
             }
 
             mainWindow.loadURL(url.format({
-                pathname: path.join(__dirname, "view", "index.html"),
+                pathname: path.join(__dirname, "view", "tabs", "index.html"),
                 slashes: true,
                 protocol: "file:"
             }));

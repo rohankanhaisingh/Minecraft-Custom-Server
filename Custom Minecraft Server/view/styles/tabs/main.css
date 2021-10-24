@@ -1,0 +1,14 @@
+.server-name {
+    width: 100%;
+    height: auto;
+    position: relative;
+    content: "";
+    font-size: 40px;
+    font-family: RobotoLight;
+    font-weight: normal;
+    text-align: center;
+}
+
+.app-tabcontent-hl {
+    margin: 30px auto;
+}

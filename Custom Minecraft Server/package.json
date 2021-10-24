@@ -4,7 +4,8 @@
   "description": "Custom Minecraft Server",
   "main": "app.js",
   "author": {
-    "name": "Babah Gee"
+    "name": "Babah Gee",
+    "url": "https://discord.gg/HQFWguAEVP"
   },
   "scripts": {
     "install": "npm install cheerio colors electron electron-is-dev express ngrok socket.io socket.io-client",
@@ -19,6 +20,7 @@
     "electron": "^15.3.0",
     "electron-is-dev": "^2.0.0",
     "express": "^4.17.1",
+    "mineflayer": "^3.11.2",
     "ngrok": "^4.2.2",
     "socket.io": "^4.3.1",
     "socket.io-client": "^4.3.2"
