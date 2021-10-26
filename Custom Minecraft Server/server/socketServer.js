@@ -1,7 +1,10 @@
 const fs = require("fs"),
     electron = require("electron"),
     path = require("path"),
-    url = require("path");
+    url = require("path"),
+    colors = require("colors");
+
+const launch = require("./minecraft/launchServer");
 
 const { overWriteData } = require("./appdata");
 const { check } = require("./minecraft/checkServerFiles");
@@ -9,6 +12,45 @@ const { check } = require("./minecraft/checkServerFiles");
 const { dialog } = electron;
 
 function listen(socket, window) {
+
+    socket.on("app:warningDialogClientSide", function (args) {
+
+        dialog.showMessageBox(window, {
+            title: typeof args.title !== "undefined" ? args.title : "Minecraft: Custom Server",
+            type: "warning",
+            message: typeof args.message !== "undefined" ? args.message : "Something went wrong!",
+            detail: typeof args.detail !== "undefined" ? args.detail : "bruh"
+        });
+
+    });
+
+    socket.on("app:startserver", function (data) {
+
+        launch.checkFormat(data, function (err, response) {
+
+            if (err) {
+
+                dialog.showMessageBox(window, {
+                    title: "An error has occurred",
+                    type: "error",
+                    message: `failed to launch server.`,
+                    detail: err.message
+                });
+
+                socket.emit("app:error", {
+                    title: "An error has occurred",
+                    message: `Failed to launch server.`,
+                    detail: err.message
+                });
+
+                return;
+            }
+
+            console.log(`Found java version ${response.version}.`.green);
+
+        });
+
+    });
 
     socket.on("app:setup:checkInputFields", function (data) {
 
@@ -39,8 +81,9 @@ function listen(socket, window) {
 
                         const tempObj = {
                             path: data["server:path"],
-                            name: data["server:name"] === null ? "A cool Minecraft Server" : data.name,
-                            owner: data["server:owner"] === null ? "Admin" : data.name,
+                            token: data["server:token"],
+                            name: data["server:name"] === null ? "A cool Minecraft Server" : data["server:name"],
+                            owner: data["server:owner"] === null ? "Admin" : data["server:owner"],
                             modt: data["server:motd"] === null ? "MOTD" : data["server:motd"],
                             output: data["app:outputpath"] === null ? data["server:path"] : data["app:outputpath"],
                         }

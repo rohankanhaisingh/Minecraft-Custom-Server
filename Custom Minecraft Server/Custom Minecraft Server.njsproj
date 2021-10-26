@@ -29,7 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
-    <Content Include="data\ApplicationData.json" />
     <Content Include="data\templates\ApplicationData.json" />
     <Content Include="data\templates\ValidateFiles.js" />
     <Content Include="package.json" />
@@ -37,6 +36,9 @@
     <Content Include="server\appdata.js" />
     <Content Include="server\ipc.js" />
     <Content Include="server\minecraft\checkServerFiles.js" />
+    <Content Include="server\minecraft\hostServer.js" />
+    <Content Include="server\minecraft\launchServer.js" />
+    <Content Include="server\minecraft\main.js" />
     <Content Include="server\socketServer.js" />
     <Content Include="view\data\fonts\atures.ttf" />
     <Content Include="view\data\fonts\black.ttf" />
@@ -114,6 +116,9 @@
     <Content Include="view\data\images\user.png" />
     <Content Include="view\data\images\wallpaper_abstract.jpg" />
     <Content Include="view\data\images\wallpaper_abstract_white.jpg" />
+    <Content Include="view\js\dynamic\generateUniqueID.js" />
+    <Content Include="view\js\dynamic\toast.js" />
+    <Content Include="view\styles\static\static.toast.css" />
     <Content Include="view\styles\tabs\main.css" />
     <Content Include="view\tabs\index.html" />
     <Content Include="view\js\dynamic\socket.js" />

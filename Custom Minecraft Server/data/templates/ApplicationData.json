@@ -12,6 +12,7 @@
   },
   "server": {
     "path": null,
+    "token": null,
     "name": null,
     "owner": null,
     "output": null

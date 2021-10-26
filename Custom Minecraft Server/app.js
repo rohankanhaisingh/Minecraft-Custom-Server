@@ -10,6 +10,7 @@ const url = require("url"),
 const { initialize } = require("./server/appdata");
 const { handle } = require("./server/ipc");
 const { listen } = require("./server/socketServer");
+const main = require("./server/minecraft/main");
 
 process.env.SOCKET = 8000;
 
@@ -71,6 +72,8 @@ app.once("ready", function () {
 
                 return;
             }
+
+            main.mainExecutionPath = parsedAppData.server.path;
 
             mainWindow.loadURL(url.format({
                 pathname: path.join(__dirname, "view", "tabs", "index.html"),

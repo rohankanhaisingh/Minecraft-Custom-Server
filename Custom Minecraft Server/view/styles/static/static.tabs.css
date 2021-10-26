@@ -20,9 +20,9 @@
     position: relative;
     content: "";
     padding: 15px;
-    background: #262626;
-    border-radius: 5px;
-    box-shadow: 0px 5px 10px #0e0e0e;
+    background: #0e0e0e;
+    /*border-radius: 5px;*/
+    border-radius: 50%;
     margin-bottom: 20px;
     cursor: pointer;
 }
@@ -66,7 +66,8 @@
     }
 
     .navigation-link:hover {
-        background: #787878;
+        background: #202020;
+        box-shadow: 0px 5px 10px #0e0e0e;
     }
 
         .navigation-link:hover:before {
@@ -122,4 +123,245 @@
     font-size: 14px;
     color: #5e5e5e;
     margin-top: 20px;
+}
+
+.app-tabcontent-group {
+    width: calc(100% - 40px);
+    height: auto;
+    padding: 20px;
+    background: #1c1c1c;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.tabcontent-group-titlebar {
+    width: 100%;
+    height: 30px;
+    background: none;
+    display: inline-block;
+    position: relative;
+    user-select: none;
+}
+
+.tabcontent-group-titlebar-title {
+    width: auto;
+    height: auto;
+    margin-top: 6px;
+    display: inline-block;
+    float: left;
+}
+
+    .tabcontent-group-titlebar-title span {
+        color: #fff;
+        font-size: 12px;
+        font-family: Montserrat;
+        text-transform: uppercase;
+    }
+
+.tabcontent-group-titlebar-toggle {
+    width: 5px;
+    height: 5px;
+    padding: 3px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    float: right;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.tabcontent-group-titlebar-toggle.active {
+    background: #fff;
+}
+
+.tabcontent-group-content {
+    width: calc(100% - 40px);
+    height: auto;
+    padding: 20px;
+    margin-top: 20px;
+    background: #222222;
+    border-radius: 5px;
+    -moz-animation: tabcontenet-group-content-fadein .5s cubic-bezier(0, 1, 1, 1);
+    -o-animation: tabcontenet-group-content-fadein .5s cubic-bezier(0, 1, 1, 1);
+    -webkit-animation: tabcontenet-group-content-fadein .5s cubic-bezier(0, 1, 1, 1);
+    animation: tabcontenet-group-content-fadein .5s cubic-bezier(0, 1, 1, 1);
+}
+
+@keyframes tabcontenet-group-content-fadein {
+    0% {
+        opacity: 0;
+        -moz-transform: translateY(-10px);
+        -ms-transform: translateY(-10px);
+        -o-transform: translateY(-10px);
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        -webkit-transform: none;
+        transform: none;
+    }
+}
+
+.group-content-item {
+    width: 100%;
+    height: 30px;
+    background: none;
+    display: inline-block;
+    position: relative;
+    content: "";
+    user-select: none;
+    margin-bottom: 15px;
+}
+
+.group-content-title {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+.group-content-title span {
+    font-family: RobotoLight;
+    color: #fff;
+    font-size: 12px;
+}
+
+.group-content-toggle {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    padding: 5px 10px;
+    display: grid;
+    margin-left: 10px;
+    float: left;
+    margin-right: 10px;
+    grid-template-columns: auto auto;
+    gap: 6px;
+    background: #161616;
+    border-radius: 15px;
+}
+
+    .group-content-toggle .toggle-value {
+        width: auto;
+        text-align: center;
+        padding: 3px 30px;
+        font-family: 'RobotoLight';
+        font-size: 12px;
+        color: #838383;
+        user-select: none;
+        cursor: pointer;
+        border-radius: 15px;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+        .group-content-toggle .toggle-value.active {
+            background: #ffffff;
+            color: #000;
+        }
+
+    .group-content-toggle:hover {
+        box-shadow: 0px 5px 10px #101010;
+    }
+
+
+.group-content-range {
+    width: 200px;
+    height: 20px;
+    float: left;
+    background: #161616;
+    margin-top: 2px;
+    padding: 3px 10px;
+    border-radius: 30px;
+}
+
+    .group-content-range input[type=range] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: calc(100% - 60px);
+        height: 3px;
+        background: #080808;
+        outline: none;
+        margin-top: 8px;
+        display: block;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+        float: left;
+    }
+
+        .group-content-range input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #1e1e1e;
+            cursor: pointer;
+            margin-top: -1px;
+            border-radius: 50%;
+        }
+
+        .group-content-range input[type=range]::-moz-range-thumb {
+            width: 25px; /* Set a specific slider handle width */
+            height: 25px; /* Slider handle height */
+            background: #04AA6D; /* Green background */
+            cursor: pointer; /* Cursor on hover */
+        }
+
+        .group-content-range input[type=range]:active {
+            background: #666666;
+        }
+        .group-content-range input[type=range]:active::-webkit-slider-thumb {
+            background: #fff;
+        }
+
+    .group-content-range .range-value {
+        width: 55px;
+        height: auto;
+        float: right;
+        text-align: center;
+        font-family: Montserrat;
+        text-transform: uppercase;
+        color: #fff;
+        font-size: 10px;
+        /* background: red; */
+        margin-top: 5px;
+    }
+
+.group-content-number {
+    width: auto;
+    height: 100%;
+    float: left;
+    display: inline-flex;
+}
+
+    .group-content-number input {
+        width: auto;
+        height: 15px;
+        outline: none;
+        color: #fff;
+        border: none;
+        background: #101010;
+        padding: 3px 7px;
+        display: inline-block;
+        margin-top: 5px;
+        border-radius: 30px;
+    }
+
+        .group-content-number input:focus {
+            box-shadow: 0px 3px 10px #040404;
+        }
+
+.app-footer {
+    width: calc(100% - 40px);
+    height: auto;
+    background: none;
+    box-shadow: none;
+    padding: 20px;
 }

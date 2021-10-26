@@ -34,8 +34,10 @@
     <link href="../styles/static/static.titlebar.css" rel="stylesheet" type="text/css" />
     <link href="../styles/static/static.navbar.css" rel="stylesheet" type="text/css" />
     <link href="../styles/static/static.loader.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.footer.css" rel="stylesheet" type="text/css" />
     <link href="../styles/static/static.tabs.css" rel="stylesheet" type="text/css" />
     <link href="../styles/static/static.contentloader.css" rel="stylesheet" type="text/css" />
+    <link href="../styles/static/static.toast.css" rel="stylesheet" type="text/css" />
 
     <link href="../styles/tabs/main.css" type="text/css" rel="stylesheet" />
 
@@ -105,6 +107,18 @@
 
         <div class="app-contents">
 
+            <div class="app-toasts-wrapper">
+                <div class="container">
+
+                    <!--<div class="app-toast">
+                        <div class="app-toast-title">An error has occurred.</div>
+                        <div class="app-toast-message">Failed to launch server.</div>
+                        <div class="app-toast-detail">There is no memory left for the server to operate. Please lower the provided memory usage.</div>
+                    </div>-->
+
+                </div>
+            </div>
+
             <div class="app-contentloader visible">
                 <div class="container">
 
@@ -151,8 +165,201 @@
                 </div>
 
                 <h1 contenteditable="true" class="server-name" spellcheck="false">Ayo! The pizza here!</h1>
+                <h3 class="server-status" spellcheck="false">Server status: <strong class="offline">offline</strong></h3>
 
                 <div class="app-tabcontent-hl"></div>
+
+                <div class="server-startbutton">
+                    <span>Start</span>
+                </div>
+
+                <div class="app-tabcontent-groups">
+
+                    <div class="app-tabcontent-group" data-id="launch">
+
+                        <div class="tabcontent-group-titlebar">
+                            <div class="tabcontent-group-titlebar-title">
+                                <span>Launch settings</span>
+                            </div>
+                            <div class="tabcontent-group-titlebar-toggle active"></div>
+                        </div>
+
+                        <div class="tabcontent-group-content">
+
+                            <div class="group-content-item" data-name="hostingMethod">
+                                <div class="group-content-title">
+                                    <span>Public hosting method:</span>
+                                </div>
+                                <div class="group-content-toggle" data-value="">
+                                    <div class="toggle-value">Local IP</div>
+                                    <div class="toggle-value">Ngrok</div>
+                                </div>
+                            </div>
+
+                            <div class="group-content-item" data-name="ramUsage">
+                                <div class="group-content-title">
+                                    <span>RAM usage (gb):</span>
+                                </div>
+                                <div class="group-content-toggle" data-value="Automatic">
+                                    <div class="toggle-value active">Automatic</div>
+                                    <div class="toggle-value">Manual</div>
+                                </div>
+                                <div class="group-content-range">
+                                    <input type="range" value="1" min="1" max="20" data-send=".range-output-ramusage" />
+                                    <div class="range-value range-output-ramusage">1</div>
+                                </div>
+                            </div>
+
+                            <div class="group-content-item" data-name="maxPlayers">
+                                <div class="group-content-title">
+                                    <span>Maximum players:</span>
+                                </div>
+                                <div class="group-content-number">
+                                    <input type="number" value="10" min="1" autocomplete="off" spellcheck="false" />
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="app-tabcontent-group" data-id="game">
+
+                        <div class="tabcontent-group-titlebar">
+                            <div class="tabcontent-group-titlebar-title">
+                                <span>In-game settings</span>
+                            </div>
+                            <div class="tabcontent-group-titlebar-toggle active"></div>
+                        </div>
+
+                        <div class="tabcontent-group-content">
+
+                            <div class="group-content-item" data-name="inGameBot">
+                                <div class="group-content-title">
+                                    <span>In-game bot:</span>
+                                </div>
+                                <div class="group-content-toggle" data-value="Enabled">
+                                    <div class="toggle-value active">Enabled</div>
+                                    <div class="toggle-value">Disabled</div>
+                                </div>
+                            </div>
+
+                            <div class="group-content-item" data-name="autoSave">
+                                <div class="group-content-title">
+                                    <span>Auto save:</span>
+                                </div>
+                                <div class="group-content-toggle" data-value="Enabled">
+                                    <div class="toggle-value active">Enabled</div>
+                                    <div class="toggle-value">Disabled</div>
+                                </div>
+                            </div>
+
+                            <div class="group-content-item" data-name="showServerLogs">
+                                <div class="group-content-title">
+                                    <span>Show server logs:</span>
+                                </div>
+                                <div class="group-content-toggle" data-value="Enabled">
+                                    <div class="toggle-value">Enabled</div>
+                                    <div class="toggle-value active">Disabled</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="app-footer">
+                    <div class="container">
+                        <div class="footer-grid">
+
+                            <div class="footer-grid-column">
+                                <div class="grid-column-title">
+                                    <span>Minecraft: Custom Server</span>
+                                </div>
+
+                                <h4 class="grid-column-desc">Pre alpha: version 0.0.1</h4>
+
+                                <div class="grid-column-hl"></div>
+
+                                <div class="grid-column-links">
+
+                                    <a href="https://discord.gg/HQFWguAEVP" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Support server</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://github.com/babahgee/Minecraft-Custom-Server" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Github repository</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://github.com/babahgee/Minecraft-Custom-Server" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Packaged Minecraft Server</span>
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                            <div class="footer-grid-column">
+
+                                <div class="grid-column-title">
+                                    <span>Software</span>
+                                </div>
+
+                                <h4 class="grid-column-desc">All of this is open source. Credits to the developers who made the software I used.</h4>
+
+                                <div class="grid-column-hl"></div>
+
+                                <div class="grid-column-links">
+
+                                    <a href="https://www.electronjs.org/" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Electron</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://ngrok.com/" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Ngrok</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://fontawesome.com/" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Font Awesome</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://fontawesome.com/" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Express</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://github.com/PrismarineJS/mineflayer" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>MineFlayer</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://ci.md-5.net/job/BungeeCord/" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>BungeeCord</span>
+                                        </div>
+                                    </a>
+                                    <a href="https://hub.spigotmc.org/jenkins/job/BuildTools/" target="_blank">
+                                        <div class="grid-column-link">
+                                            <span>Spigot</span>
+                                        </div>
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
