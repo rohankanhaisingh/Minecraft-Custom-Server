@@ -1,10 +1,13 @@
-const { ipcMain, app, BrowserWindow } = require("electron")
+const { ipcMain, app, BrowserWindow } = require("electron");
+const colors = require("colors");
 
 /**
  * Handles IPC events from the client.
  * @param {BrowserWindow} mainWindow
  */
 function handle(mainWindow) {
+
+    console.log("Started listeners on IPC thread.".gray);
 
     ipcMain.on("app:close", function (event, args) {
 

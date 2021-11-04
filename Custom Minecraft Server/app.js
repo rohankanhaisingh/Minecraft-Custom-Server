@@ -1,3 +1,5 @@
+console.clear(0);
+
 const url = require("url"),
     path = require("path"),
     electron = require("electron"),
@@ -12,17 +14,32 @@ const { handle } = require("./server/ipc");
 const { listen } = require("./server/socketServer");
 const main = require("./server/minecraft/main");
 
+const { app, BrowserWindow, ipcMain, dialog } = electron;
+
 process.env.SOCKET = 8000;
 
 const io = socketio(8000);
 
-const { app, BrowserWindow, ipcMain, dialog } = electron;
+const currentOS = process.platform;
+
+if (currentOS !== "win32") {
+
+    process.exit();
+
+    return;
+};
 
 const parsedAppData = initialize();
 
 let mainWindow, activeClient;
 
+console.log("Initializing application...".yellow);
+
 app.once("ready", function () {
+
+    console.log("Succesfully initialized application".green);
+
+    console.log("Loading browser window...".yellow);
 
     mainWindow = new BrowserWindow({
         title: "Custom Minecraft Server",
@@ -45,7 +62,9 @@ app.once("ready", function () {
 
     handle(mainWindow);
 
-    io.sockets.on("connection", function (socket) {
+    io.sockets.on("connection", async function (socket) {
+
+        console.log(`New socket with id '${socket.id}' has been connected at ${new Date()}`.gray);
 
         activeClient = socket;
 
@@ -53,7 +72,7 @@ app.once("ready", function () {
     });
 
     mainWindow.webContents.once("dom-ready", function () {
-
+        console.log("Succesfully loaded browser window.".green);
     });
 
     if (typeof parsedAppData.server !== "undefined") {

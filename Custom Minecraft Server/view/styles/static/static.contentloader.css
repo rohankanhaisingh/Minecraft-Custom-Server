@@ -1,14 +1,14 @@
 .app-contentloader {
     width: 100vw;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 30px);
     position: fixed;
-    top: 60px;
+    top: 30px;
     left: 0;
     z-index: 1;
-    /*background: #161616;*/
-    display: none;
+    /* background: #012f36; */
+     display: none; 
     -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(100px);
 }
 
     .app-contentloader.fadein {
@@ -113,4 +113,19 @@
         -webkit-transform: rotate(calc(360deg * 2));
         transform: rotate(calc(360deg * 2));
     }
+}
+
+.contentloader-text {
+    width: auto;
+    height: auto;
+    position: absolute;
+    right: 130px;
+    bottom: 63px;
+}
+
+.contentloader-text span {
+    font-family: Montserrat;
+    color: #fff;
+    font-size: 12px;
+    user-select: none;
 }

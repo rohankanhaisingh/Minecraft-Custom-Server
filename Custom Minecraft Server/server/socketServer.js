@@ -8,6 +8,8 @@ const launch = require("./minecraft/launchServer");
 
 const { overWriteData } = require("./appdata");
 const { check } = require("./minecraft/checkServerFiles");
+const main = require("./minecraft/main");
+const { processes } = require("./minecraft/main");
 
 const { dialog } = electron;
 
@@ -24,9 +26,20 @@ function listen(socket, window) {
 
     });
 
+    socket.on("app:getServerState", function () {
+
+        socket.emit("app_response:getServerState", {
+            host: processes.host,
+            lobby: processes.lobby === null ? null : "ChildProcess<Spigot>",
+            bungee: processes.bungee === null ? null : "ChildProcess<BungeeCord>",
+            executionPath: processes._execution.path
+        });
+
+    });
+
     socket.on("app:startserver", function (data) {
 
-        launch.checkFormat(data, function (err, response) {
+        launch.checkFormat(data, async function (err, response) {
 
             if (err) {
 
@@ -48,8 +61,25 @@ function listen(socket, window) {
 
             console.log(`Found java version ${response.version}.`.green);
 
+            await main.executeThreads(main.mainExecutionPath, data.launch.ramUsage);
+
+            socket.emit("app_response:runningServer", {
+                host: processes.host,
+                timestamp: Date.now()
+            });
         });
 
+    });
+
+    socket.on("app:getServerPropertiesTemplate", function (args) {
+
+        const propertiesTemplateFile = fs.readFileSync(path.join(__dirname, "../", "data", "details", "ServerInfo.json"), {encoding: "utf-8"});
+
+
+        socket.emit("app_response:getServerPropertiesTemplate", {
+            data: propertiesTemplateFile,
+            timestamp: Date.now()
+        });
     });
 
     socket.on("app:setup:checkInputFields", function (data) {
@@ -87,8 +117,6 @@ function listen(socket, window) {
                             modt: data["server:motd"] === null ? "MOTD" : data["server:motd"],
                             output: data["app:outputpath"] === null ? data["server:path"] : data["app:outputpath"],
                         }
-
-                        console.log(tempObj);
 
                         overWriteData({ server: tempObj }, function () {
 

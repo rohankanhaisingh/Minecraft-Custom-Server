@@ -19,7 +19,7 @@
     font-weight: normal;
     text-align: center;
     margin-top: 20px;
-    color: #787878;
+    color: #fff;
     user-select: none;
 }
 
@@ -39,6 +39,8 @@
         font-weight: 900;
         color: #adddff;
         margin-left: 10px;
+        pointer-events: all;
+        user-select: all;
     }
 
 .app-tabcontent-hl {

@@ -1,0 +1,87 @@
+{
+  "max-players": {
+    "displayname": "Player length",
+    "type": "number",
+    "min": 0,
+    "max": 1000,
+    "description": "Set a maximum length of players that can join."
+  },
+  "difficulty": {
+    "displayname": "Difficulty",
+    "type": "dropdown",
+    "items": [
+      "peaceful",
+      "easy",
+      "normal",
+      "hard"
+    ],
+    "description": "Set the difficulty of the game."
+  },
+  "online-mode": {
+    "displayname": "Block cracked players.",
+    "type": "boolean",
+    "description": "Disallow players with a pirated version of Minecraft to join."
+  },
+  "enable-command-block": {
+    "displayname": "Command blocks",
+    "type": "boolean",
+    "description": "Enable command blocks to operate in the server."
+  },
+  "spawn-animals": {
+    "displayname": "Spawn animals",
+    "type": "boolean",
+    "description": "Spawn animals in the server."
+  },
+  "spawn-npcs": {
+    "displayname": "Spawn NPC's",
+    "type": "boolean",
+    "description": "Spawn NCP's in the server."
+  },
+  "force-gamemode": {
+    "displayname": "Force gamemode",
+    "type": "boolean",
+    "description": "Force players to join on a specific gamemode."
+  },
+  "gamemode": {
+    "displayname": "Gamemode",
+    "type": "dropdown",
+    "items": [
+      "survival",
+      "creative",
+      "adventure",
+      "spectator"
+    ],
+    "description": "Set the main gamemode."
+  },
+  "white-list": {
+    "displayname": "White list",
+    "type": "boolean",
+    "description": "Use a white-list for this server."
+  },
+  "pvp": {
+    "displayname": "PVP",
+    "type": "boolean",
+    "description": "Use PVP (players versus player) in this server."
+  },
+  "allow-flight": {
+    "displayname": "Flight",
+    "type": "boolean",
+    "description": "Allow players to fly."
+  },
+  "spawn-monsters": {
+    "displayname": "Monsters",
+    "type": "boolean",
+    "description": "Spawn monsters in the server."
+  },
+  "allow-nether": {
+    "displayname": "Nether",
+    "type": "boolean",
+    "description": "Allow the server to generate The Nether"
+  },
+  "spawn-protection": {
+    "displayname": "Spawn protection",
+    "type": "number",
+    "min": 0,
+    "description": "Set a spawn protection range."
+  }
+}

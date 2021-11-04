@@ -1,10 +1,15 @@
+const electronIsDev = require("electron-is-dev");
 const si = require("systeminformation"),
-    fs = require("fs");
+    fs = require("fs"),
+    path = require("path");
 
-
-const { getPropertiesFile } = require("./checkServerFiles");
+const { getPropertiesFile, saveJSONProperties, getConfigData, saveConfigFile, check } = require("./checkServerFiles");
+const main = require("./main");
 
 function checkJavaInstallation(callback) {
+
+    console.log("Checking installed Java version...".yellow);
+
     const spawn = require('child_process').spawn('java', ['-version']);
 
     spawn.on('error', function (err) {
@@ -24,8 +29,73 @@ function checkJavaInstallation(callback) {
         }
 
         return callback({
-            message: "Java has no been installed."
+            message: "Java has not been installed."
         }, null);
+    });
+}
+
+/**
+ * Set memory in executable files.
+ * @param {number} memInGB
+ */
+function setMemoryInExecutable(memInGB) {
+
+    if (typeof memInGB !== "number") return null;
+
+    const mainDir = fs.readdirSync(main.mainExecutionPath, { encoding: "utf-8" });
+
+    mainDir.forEach(function (dir) {
+
+        const stat = fs.lstatSync(path.join(main.mainExecutionPath, dir));
+
+        if (!stat.isDirectory()) return;
+
+        const dir1 = fs.readdirSync(path.join(main.mainExecutionPath, dir), { encoding: "utf-8" });
+
+        const writtenFiles = [];
+
+        dir1.forEach(function (subdir) {
+
+            const stat1 = fs.lstatSync(path.join(main.mainExecutionPath, dir, subdir));
+
+            if (!stat1.isDirectory()) return;
+
+            const subdir1 = fs.readdirSync(path.join(main.mainExecutionPath, dir, subdir), { encoding: "utf-8" });
+
+            subdir1.forEach(function (file) {
+
+                if (file !== "start.bat") return;
+
+                const f = fs.readFileSync(path.join(main.mainExecutionPath, dir, subdir, file), { encoding: "utf-8" });
+
+                const executionArgs = f.substring(6).split("-");
+               
+                let mainArg = "java ";
+
+                executionArgs.forEach(function (arg) {
+
+                    if (arg.startsWith("Xmx")) {
+
+                        const newArg = "Xmx" + memInGB + "G ";
+
+                        mainArg += "-" + newArg;
+                    } else {
+                        mainArg += "-" + arg;
+                    }
+
+                });
+
+
+                fs.writeFileSync(path.join(main.mainExecutionPath, dir, subdir, file), mainArg, { encoding: "utf-8" });
+
+                writtenFiles.push(file);
+            });
+
+        });
+
+        console.log(`Succesfully wrote ${writtenFiles.length} files.`.green);
+
+        return true;
     });
 }
 
@@ -33,27 +103,47 @@ function checkFormat(data, callback) {
 
     const tempObj = data;
 
+    console.log("Loading system memory status...".yellow);
+
     si.mem(function (res) {
 
         const availableMemory = res.free,
             providedMemoryUsage = tempObj.launch.ramUsage === "automatic" ? availableMemory / 2 : tempObj.launch.ramUsage * 1073741824,
             calculation = availableMemory - providedMemoryUsage;
 
+        console.log(`Succesfully loaded system memory status. Available: ${availableMemory}`.green);
+
         if (providedMemoryUsage > availableMemory) {
 
-            callback({
-                message: `Cannot use provided memory for server. There is only ${availableMemory} bytes of memory left.`,
-                from: "checkFormat"
-            }, null);
+            if (!electronIsDev) {
+                console.log(`Failed to launch dedicated TCP server. Not enough system memory left in order to operate. Available: ${availableMemory}; Requested: ${providedMemoryUsage}.`.red);
+
+                callback({
+                    message: `Cannot use provided memory for server. There is only ${availableMemory} bytes of memory left. Requested memory size: ${providedMemoryUsage}`,
+                    from: "checkFormat"
+                }, null);
 
 
-            return;
+                return;
+            } else {
+                console.log("Warning: There is no enough system ram memory left in order to operate. Will ignore since application is in dev-mode.".yellow);
+            }
+
         }
 
 
         const propertiesData = getPropertiesFile();
 
-        propertiesData["max-players"] = data.launch.maxPlayers;
+        propertiesData.parsedData["max-players"] = data.launch.maxPlayers;
+        saveJSONProperties(propertiesData.filePath, propertiesData.parsedData)
+
+        const configData = getConfigData();
+
+        configData.parsedData.listeners[0].max_players = data.launch.maxPlayers;
+
+        saveConfigFile(configData.filePath, configData.parsedData);
+
+        setMemoryInExecutable(tempObj.launch.ramUsage);
 
         // Check if Java is installed.
         checkJavaInstallation(function (err, res) {

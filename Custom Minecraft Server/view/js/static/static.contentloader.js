@@ -6,7 +6,7 @@
     const ctx = canvas.getContext("2d");
 
     canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight - 60;
+    canvas.height = window.innerHeight - 30;
 
     let center = {
         x: canvas.width / 2,
@@ -16,7 +16,7 @@
     window.addEventListener("resize", function (event) {
 
         canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight - 60;
+        canvas.height = window.innerHeight - 30;
 
         center = {
             x: canvas.width / 2,
@@ -30,12 +30,14 @@
         return Math.floor(Math.random() * (num2 - num1 + 1) + num1);
     }
 
-    const trails = []
-
     const tiles = [];
 
     class Tile {
         constructor(x, y) {
+
+            this.originX = x;
+            this.originY = y;
+
             this.x = x;
             this.y = y;
 
@@ -44,6 +46,7 @@
 
             this.direction = this.tickSpeed;
 
+            this.originSize = 40;
             this.size = 40;
 
             this.color = `rgb(${randombetween(0, 255)}, ${randombetween(0, 255)}, ${randombetween(0, 255)})`;
@@ -61,12 +64,12 @@
             ctx.globalAlpha = this.opacity;
             ctx.lineWidth = 2;
 
+
+
             ctx.rect(center.x + this.x - (this.size * 2), center.y + this.y - (this.size * 2), this.size, this.size);
 
             ctx.shadowBlur = 50;
             ctx.shadowColor = this.color;
-            //ctx.shadowOffsetX = -5;
-            //ctx.shadowOffsetY = 5;
             
 
             ctx.fillStyle = this.color;
@@ -78,10 +81,11 @@
         }
         update() {
 
-            //this.size -= .1;
 
             if (this.opacity > this.tickSpeed) {
                 this.opacity -= this.tickSpeed;
+
+
             } else {
                 this.opacity = 0;
             }
@@ -101,18 +105,23 @@
         y += 1;
     }
 
+
+    let maxCounterTick = 50,
+        counter = maxCounterTick + 10;
+
     function animateOnInterval(i, color) {
 
-        setTimeout(function() {
+        setTimeout(function () {
 
-            tiles[i].opacity = 1;
-            tiles[i].color = color;
+            const tile = tiles[i];
 
-        }, i * 50);
+            tile.opacity = 1;
+            tile.color = color;
+            tile.size = tile.originSize;
+
+        }, i * maxCounterTick);
 
     }
-
-    let counter = 220;
 
     function update() {
 
@@ -123,7 +132,7 @@
         counter += 1;
 
 
-        if (counter > 50) {
+        if (counter > maxCounterTick) {
 
             let color = `rgb(${randombetween(0, 255)}, ${randombetween(0, 255)}, ${randombetween(0, 255)})`;
 

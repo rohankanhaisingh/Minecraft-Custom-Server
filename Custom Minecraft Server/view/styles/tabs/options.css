@@ -1,0 +1,198 @@
+.properties-tooltip {
+    width: 290px;
+    height: auto;
+    padding: 20px;
+    background: rgb(0 0 0 / 70%);
+    position: fixed;
+    backdrop-filter: blur(20px);
+    border-radius: 5px;
+    top: 40px;
+    left: 30px;
+    z-index: 10;
+    user-select: none;
+    pointer-events: none;
+    -moz-transition: all .3s cubic-bezier(0, 1, 1, 1);
+    -o-transition: all .3s cubic-bezier(0, 1, 1, 1);
+    -webkit-transition: all .3s cubic-bezier(0, 1, 1, 1);
+    transition: all .3s cubic-bezier(0, 1, 1, 1);
+}
+
+.properties-tooltip.hidden {
+    display: block;
+    opacity: 0;
+}
+
+.properties-tooltip-displayname {
+    width: auto;
+    height: auto;
+}
+
+    .properties-tooltip-displayname span {
+        font-family: 'Montserrat';
+        font-size: 16px;
+        color: #fff;
+    }
+
+.properties-tooltip-type {
+    width: 100%;
+    height: auto;
+    margin-top: 5px
+}
+
+    .properties-tooltip-type span {
+        font-family: Consolas;
+        color: #9d9d9d;
+        font-size: 10px;
+    }
+
+    .properties-tooltip-type span strong.boolean {
+        color: #1c7cff;
+    }
+
+.properties-tooltip-hl {
+    width: 35%;
+    height: 2px;
+    background: #707070;
+    margin: 20px 0px;
+}
+
+.properties-tooltip-description {
+    width: 100%;
+    height: auto;
+}
+
+    .properties-tooltip-description span {
+        font-family: RobotoLight;
+        font-size: 11px;
+        color: #9b9b9b;
+    }
+
+    .properties-wrapper {
+        width: calc(100% - 40px);
+        height: auto;
+        padding: 20px;
+        background: rgb(0 0 0 / 18%);
+        backdrop-filter: blur(10px);
+        margin-bottom: 40px;
+        border-radius: 5px;
+    }
+
+.properties-wrapper-nav {
+    width: 100%;
+    height: 40px;
+    /*background: red;*/
+    user-select: none;
+    margin-bottom: 20px;
+}
+
+.properties-nav-filename {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-top: 7px;
+}
+
+    .properties-nav-filename span {
+        font-family: Montserrat;
+        color: #fff;
+        font-size: 20px;
+    }
+
+.properties-nav-vl {
+    width: 2px;
+    height: 20px;
+    float: left;
+    background: #959595;
+    margin: 10px 20px;
+}
+
+.properties-nav-filepath {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-top: 10px;
+}
+
+    .properties-nav-filepath span {
+        font-family: RobotoLight;
+        color: #bdbdbd;
+        font-size: 12px;
+    }
+
+.properties-wrapper-grid {
+    width: 100%;
+    height: auto;
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    gap: 20px;
+}
+
+.grid-cell {
+    background: rgb(0 0 0 / 40%);
+    border-radius: 5px;
+    padding: 10px;
+    height: auto;
+    min-height: 30px;
+    position: relative;
+    content: "";
+}
+
+.grid-cell-title {
+    width: auto;
+    height: auto;
+    float: left;
+    margin-top: 6px;
+}
+
+.grid-cell-title span {
+    font-family: RobotoLight;
+    font-size: 14px;
+    color: #fff;
+}
+
+.grid-cell-toggle {
+    width: 50px;
+    height: 20px;
+    position: relative;
+    content: "";
+    float: right;
+    background: #262626;
+    border-radius: 30px;
+    margin-top: 5px;
+    cursor: pointer;
+    -moz-transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+    -o-transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+    transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+}
+
+    .grid-cell-toggle:before {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        content: "";
+        left: 5px;
+        top: 5px;
+        border-radius: 50%;
+        background: #fff;
+        -moz-transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+        -o-transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+        -webkit-transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+        transition: all 0.3s cubic-bezier(0, 1, 1, 1);
+    }
+
+.grid-cell-toggle.active { 
+    background: #fff;
+}
+
+    .grid-cell-toggle.active:before {
+        background: #000;
+        left: 35px;
+    }
+    .grid-cell-toggle:hover:before {
+        -moz-transform: scale(1.3);
+        -ms-transform: scale(1.3);
+        -o-transform: scale(1.3);
+        -webkit-transform: scale(1.3);
+        transform: scale(1.3);
+    }

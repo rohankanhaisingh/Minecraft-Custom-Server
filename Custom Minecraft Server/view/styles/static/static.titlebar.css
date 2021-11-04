@@ -1,7 +1,7 @@
 .app-titlebar {
     width: 100vw;
     height: 60px;
-    background: #1a1a1a;
+    background: none;
 }
 
 .app-titlebar .layer {
@@ -13,11 +13,12 @@
 
 
     .app-titlebar .layer-1 {
-        background: #101010;
+        background: rgb(0 0 0 / 60%);
+        backdrop-filter: blur(20px);
     }
 
     .app-titlebar .layer-2 {
-        background: #161616;
+        backdrop-filter: blur(20px);
     }
 
 .app-draggable {
@@ -194,6 +195,13 @@
 
     .quicklinks-link:hover {
         background: transparent;
-        border: 1px solid transparent;
-        box-shadow: 0px 1px 10px #000;
+        border: 1px solid #fff;
+        /*box-shadow: 0px 1px 10px #000;*/
     }
+
+.app.in-server .app-titlebar .layer-1 {
+    background: rgb(23 42 56 / 40%);
+}
+.app.in-server .app-titlebar .layer-2 {
+    background: rgb(23 42 56 / 40%);
+}

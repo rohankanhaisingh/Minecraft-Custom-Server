@@ -1,6 +1,7 @@
 const fs = require("fs"),
     path = require("path"),
-    url = require("url");
+    url = require("url"),
+    colors = require("colors");
 
 const applicationName = "Minecraft - Custom Server",
     appDataFolder = process.env.APPDATA;
@@ -13,6 +14,8 @@ function checkFolderExistance() {
 }
 
 function createAppDataTemplate() {
+
+    console.log(`No application data directory found in ${appDataFolder}. Generating a new one...`.yellow);
 
     fs.mkdirSync(path.join(appDataFolder, applicationName));
     fs.mkdirSync(path.join(appDataFolder, applicationName, "Application Data"));
@@ -27,6 +30,8 @@ function createAppDataTemplate() {
     fs.writeFileSync(path.join(appDataFolder, applicationName, "Application Data", "history.json"), "[]", { encoding: "utf-8" });
     fs.writeFileSync(path.join(appDataFolder, applicationName, "Application Data", "server.json"), JSON.stringify(serverConfig), { encoding: "utf-8" });
 
+    console.log(`Wrote 2 new fileSs) in ${path.join(appDataFolder, applicationName, "Application Data")}`.gray);
+    
     return createUserDataFileTemplate();
 }
 
@@ -36,11 +41,15 @@ function createUserDataFileTemplate() {
 
     fs.writeFileSync(path.join(appDataFolder, applicationName, "Application Data", "configuration.json"), JSON.stringify(templateFile, null, 2), { encoding: "utf-8" });
 
+    console.log(`Wrote 1 new file(s) in ${path.join(appDataFolder, applicationName, "Application Data")}`.gray);
+
     return templateFile;
 }
 
 /* ========== Public functions ========== */
 function initialize() {
+
+    console.log("Initializing application data...".yellow);
 
     const folderExists = checkFolderExistance();
 
@@ -66,6 +75,8 @@ function overWriteData(newData, callback) {
     }
 
     fs.writeFileSync(path.join(appDataFolder, applicationName, "Application Data", "configuration.json"), JSON.stringify(data, null, 2), { encoding: "utf-8" });
+
+    console.log(`Wrote 1 new file(s) in ${path.join(appDataFolder, applicationName, "Application Data")}`.gray);
 
     if (typeof callback == "function") {
         callback(data);
