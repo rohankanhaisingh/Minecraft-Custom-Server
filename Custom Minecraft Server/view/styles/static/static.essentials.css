@@ -181,3 +181,17 @@ h4 strong, h5 strong, h6 strong {
 .app.in-server {
     background: #171f24;
 }
+
+.hl {
+    width: 30px;
+    height: 1px;
+    position: relative;
+    content: "";
+}
+
+.vl {
+    width: 1px;
+    height: 30px;
+    position: relative;
+    content: "";
+}

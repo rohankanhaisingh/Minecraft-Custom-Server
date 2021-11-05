@@ -7,8 +7,10 @@ const fs = require("fs"),
 const launch = require("./minecraft/launchServer");
 
 const { overWriteData } = require("./appdata");
-const { check } = require("./minecraft/checkServerFiles");
+const { check, saveJSONProperties, getPropertiesFile } = require("./minecraft/checkServerFiles");
+
 const main = require("./minecraft/main");
+
 const { processes } = require("./minecraft/main");
 
 const { dialog } = electron;
@@ -23,6 +25,44 @@ function listen(socket, window) {
             message: typeof args.message !== "undefined" ? args.message : "Something went wrong!",
             detail: typeof args.detail !== "undefined" ? args.detail : "bruh"
         });
+
+    });
+
+    socket.on("app:applychanges", function (res) {
+
+        const mainPath = path.join(main.mainExecutionPath, "Server", "lobby", res.fileName);
+
+        const existingData = getPropertiesFile().parsedData;
+        const newData = res.data;
+
+        for (let key in newData) {
+
+            for (let existingKey in existingData) {
+
+                if (existingKey === key) {
+
+                    if (existingData[key] !== newData[key]) {
+                        existingData[key] = newData[key];
+                    }
+
+                }
+            }
+
+        }
+
+        const saveState = saveJSONProperties(mainPath, existingData);
+
+        socket.emit("app_respnse:applychanges", {
+            res: res,
+            data: saveState
+        });
+    });
+
+    socket.on("app:getPropertiesFile", function () {
+
+        const file = getPropertiesFile();
+
+        socket.emit("app_response:getPropertiesFile", file);
 
     });
 

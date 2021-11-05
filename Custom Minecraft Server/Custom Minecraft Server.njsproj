@@ -118,8 +118,11 @@
     <Content Include="view\data\icons\icon_settings.png" />
     <Content Include="view\data\icons\icon_sliders.png" />
     <Content Include="view\data\icons\icon_terminal.png" />
+    <Content Include="view\data\icons\windows\cumpoopandshit.png" />
+    <Content Include="view\data\icons\windows\ghhhhrhrreeeeenfdjkdfkjghsd.png" />
     <Content Include="view\data\images\beans.jpg" />
     <Content Include="view\data\images\discord.png" />
+    <Content Include="view\data\images\gifs\obama-gaming-sphere.gif" />
     <Content Include="view\data\images\user.png" />
     <Content Include="view\data\images\wallpapers\bg-wallpaper-main.jpg" />
     <Content Include="view\data\images\wallpapers\bg-wallpaper-mountain.jpg" />
@@ -131,11 +134,18 @@
     <Content Include="view\js\tabs\main\module.sivn.js" />
     <Content Include="view\js\tabs\main\module.so1s.js" />
     <Content Include="view\js\tabs\options\index.js" />
+    <Content Include="view\js\tabs\options\module.fart.js" />
     <Content Include="view\js\tabs\options\module.fgz2.js" />
     <Content Include="view\js\tabs\options\module.genz.js" />
+    <Content Include="view\js\tabs\terminal\index.js" />
+    <Content Include="view\loader.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="view\styles\loader.css" />
     <Content Include="view\styles\static\static.toast.css" />
     <Content Include="view\styles\tabs\main.css" />
     <Content Include="view\styles\tabs\options.css" />
+    <Content Include="view\styles\tabs\terminal.css" />
     <Content Include="view\tabs\index.html" />
     <Content Include="view\js\dynamic\socket.js" />
     <Content Include="view\js\setup.js" />
@@ -625,6 +635,9 @@
     <Content Include="view\tabs\options.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="view\tabs\terminal.html">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="data\" />
@@ -638,13 +651,16 @@
     <Folder Include="view\data\" />
     <Folder Include="view\data\fonts\" />
     <Folder Include="view\data\icons\" />
+    <Folder Include="view\data\icons\windows\" />
     <Folder Include="view\data\images\" />
+    <Folder Include="view\data\images\gifs\" />
     <Folder Include="view\data\images\wallpapers\" />
     <Folder Include="view\js\" />
     <Folder Include="view\js\dynamic\" />
     <Folder Include="view\js\tabs\" />
     <Folder Include="view\js\static\" />
     <Folder Include="view\js\tabs\main\" />
+    <Folder Include="view\js\tabs\terminal\" />
     <Folder Include="view\js\tabs\options\" />
     <Folder Include="view\libs\" />
     <Folder Include="view\libs\%40fortawesome\" />

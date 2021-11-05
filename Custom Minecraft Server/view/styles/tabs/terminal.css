@@ -1,0 +1,123 @@
+:root {
+    --terminal-height: 540px;
+    --terminal-nav-height: 40px;
+    --terminal-input-height: 50px;
+    --terminal-output-margin: 20px;
+    --terminal-output-height: calc(100% - var(--terminal-nav-height) - var(--terminal-input-height) - var(--terminal-output-margin))
+}
+
+.app-terminal {
+    width: calc(100% - 40px);
+    height: var(--terminal-height);
+    padding: 20px;
+    border-radius: 5px;
+    background: rgb(0 0 0 / 18%);
+    backdrop-filter: blur(10px);
+    margin-bottom: 40px;
+}
+
+.terminal-nav {
+    width: 100%;
+    height: var(--terminal-nav-height);
+    background: none;
+    padding: 0;
+    position: relative;
+    user-select: none !important;
+}
+
+.terminal-nav-activeprocess {
+    float: left;
+    margin-top: 5px;
+}
+
+.terminal-nav-vl {
+    float: left;
+    background: #585858;
+    height: 20px;
+    width: 2px;
+    margin: 10px 20px;
+}
+
+.terminal-nav-detail {
+    float: left;
+    font-family: RobotoLight;
+    color: #fff;
+    font-size: 10px;
+    margin-top: 9px;
+    margin-right: 10px;
+}
+
+.terminal-nav-detail-wrapper {
+    padding: 5px 15px;
+    background: #2c2c2c;
+    border-radius: 30px;
+}
+
+.terminal-output {
+    width: calc(100% - 40px);
+    height: calc(var(--terminal-output-height) - 40px);
+    margin-top: var(--terminal-output-margin);
+    background: rgb(0 0 0 / 50%);
+    border-radius: 5px;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.terminal-output-stream {
+    width: calc(100% - 20px);
+    height: auto;
+    padding: 10px;
+    background: rgb(0 0 0 / 10%);
+    border-radius: 5px;
+}
+
+.stream-type {
+    width: 60px;
+    height: 20px;
+    padding: 0 20px;
+    float: left;
+    background: #161616;
+    border-radius: 30px;
+    margin-top: 8px;
+    position: relative;
+    content: "";
+}
+
+    .stream-type span {
+        font-family: RobotoLight;
+        color: #fff;
+        font-size: 10px;
+        user-select: none;
+        display: table;
+        margin-top: 3px;
+    }
+
+    .stream-type:before {
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        content: "";
+        top: 0;
+        bottom: 0;
+        right: 10px;
+        margin: auto;
+        background: #fff;
+        border-radius: 50%;
+    }
+
+.stream-content {
+    width: calc(100% - 140px);
+    height: auto;
+    padding: 10px;
+    background: rgb(0 0 0 / 25%);
+    border-radius: 5px;
+    margin-left: 20px;
+    display: inline-block;
+}
+
+.stream-content span {
+    font-family: Consola;
+    font-size: 12px;
+    color: #fff;
+}

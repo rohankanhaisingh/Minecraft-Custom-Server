@@ -84,12 +84,12 @@ function saveJSONProperties(filePath, data) {
     if (typeof filePath !== "string" && typeof data !== "object") return null;
 
     // Check if path exist.
-    if (!fs.existsSync(filePath)) return null;
+    if (!fs.existsSync(filePath)) return false;
 
     let formattedData = "";
 
     for (let key in data) {
-        formattedData += `${key}:${data[key]}\n`;
+        formattedData += `${key}=${data[key]}\n`;
     }
 
     fs.writeFileSync(filePath, formattedData, { encoding: "utf-8" });

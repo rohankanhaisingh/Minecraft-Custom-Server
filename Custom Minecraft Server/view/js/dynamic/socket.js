@@ -7,8 +7,6 @@ export function init() {
     socket.emit("client_connect", {
         timestamp: Date.now()
     });
-
-
 }
 
 /**

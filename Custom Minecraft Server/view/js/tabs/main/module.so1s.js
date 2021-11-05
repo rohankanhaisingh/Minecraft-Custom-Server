@@ -1,4 +1,6 @@
 import { emit } from "../../dynamic/socket.js";
+import { Toast } from "../../dynamic/toast.js";
+
 
 const mainApp = document.querySelector(".app"),
     contentLoader = document.querySelector(".app-contentloader"),

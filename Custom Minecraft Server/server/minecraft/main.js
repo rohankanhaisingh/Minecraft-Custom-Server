@@ -60,6 +60,7 @@ async function executeThreads(executionPath, memory) {
         proto: "tcp",
         addr: 25565,
         authtoken: token,
+        binPath: p => p.replace(p, path.join(executionPath, "Server", "Ngrok")),
         onStatusChange: function (status) {
 
             if (typeof processes._events._ngrok["onStatusChange"] === "function") processes._events._ngrok["onStatusChange"](status);
@@ -76,22 +77,22 @@ async function executeThreads(executionPath, memory) {
 
     console.log(`Starting BungeeCord server...`.yellow);
 
-//    const bungee = require(path.join(mainExecutionPath, "Server", "BungeeCord", "Execute.js"));
+    const bungee = require(path.join(mainExecutionPath, "Server", "BungeeCord", "Execute.js"));
 
-//    processes.bungee = bungee.execute(memory, function (err, stdout, stdin) {
-//        if (stdout) if (typeof processes._events._bungee["stdout"] === "function") processes._events._bungee["stdout"](stdout);
-//        if (err) if (typeof processes._events._bungee["stderr"] === "function") processes._events._bungee["stdout"](err);
-//        if (stdin) if (typeof processes._events._bungee["stdin"] === "function") processes._events._bungee["stdout"](stdin);
-//    });
+    processes.bungee = bungee.execute(memory, function (err, stdout, stdin) {
+        if (stdout) if (typeof processes._events._bungee["stdout"] === "function") processes._events._bungee["stdout"](stdout);
+        if (err) if (typeof processes._events._bungee["stderr"] === "function") processes._events._bungee["stdout"](err);
+        if (stdin) if (typeof processes._events._bungee["stdin"] === "function") processes._events._bungee["stdout"](stdin);
+    });
 
-//    const lobby = require(path.join(mainExecutionPath, "Server", "Lobby", "Execute.js"));
+    const lobby = require(path.join(mainExecutionPath, "Server", "Lobby", "Execute.js"));
 
-//    processes.lobby = lobby.execute(memory, function (err, stdout, stdin) {
-//
-//        if (stdout) if (typeof processes._events._lobby["stdout"] === "function") processes._events._lobby["stdout"](stdout);
-//        if (err) if (typeof processes._events._lobby["stderr"] === "function") processes._events._lobby["stdout"](err);
-//        if (stdin) if (typeof processes._events._lobby["stdin"] === "function") processes._events._lobby["stdout"](stdin);
-//    });
+    processes.lobby = lobby.execute(memory, function (err, stdout, stdin) {
+
+        if (stdout) if (typeof processes._events._lobby["stdout"] === "function") processes._events._lobby["stdout"](stdout);
+        if (err) if (typeof processes._events._lobby["stderr"] === "function") processes._events._lobby["stdout"](err);
+        if (stdin) if (typeof processes._events._lobby["stdin"] === "function") processes._events._lobby["stdout"](stdin);
+    });
 }
 
 function setExecutionPath(path) {

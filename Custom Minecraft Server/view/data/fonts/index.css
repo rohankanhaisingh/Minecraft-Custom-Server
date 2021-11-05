@@ -47,3 +47,8 @@
     font-family: Consolas;
     src: url(./Consolas.ttf);
 }
+
+@font-face {
+    font-family: Consola;
+    src: url(./CONSOLA.TTF);
+}

@@ -31,16 +31,12 @@ if (currentOS !== "win32") {
 
 const parsedAppData = initialize();
 
-let mainWindow, activeClient;
+let mainWindow, activeClient, loaderWindow;
 
 console.log("Initializing application...".yellow);
 
-app.once("ready", function () {
 
-    console.log("Succesfully initialized application".green);
-
-    console.log("Loading browser window...".yellow);
-
+function createBrowserWindow() {
     mainWindow = new BrowserWindow({
         title: "Custom Minecraft Server",
         backgroundColor: "#1a1a1a",
@@ -50,14 +46,28 @@ app.once("ready", function () {
         minWidth: 800,
         resizable: true,
         frame: false,
+        show: false,
         titleBarStyle: "hidden",
-        icon: "./assets/icons/win/discord.png",
+        icon: path.join(__dirname, "view", "data", "icons", "windows", "cumpoopandshit.png"),
         webPreferences: {
             contextIsolation: false,
             nodeIntegration: true,
             nodeIntegrationInSubFrames: true,
             nodeIntegrationInWorker: true,
         }
+    });
+
+    mainWindow.webContents.on("dom-ready", function () {
+
+        mainWindow.show();
+
+        if (loaderWindow !== null) {
+            loaderWindow.hide();
+            loaderWindow.close();
+
+            loaderWindow = null;
+        }
+
     });
 
     handle(mainWindow);
@@ -113,5 +123,47 @@ app.once("ready", function () {
             protocol: "file:"
         }));
     }
+}
+
+app.once("ready", function () {
+
+    console.log("Succesfully initialized application".green);
+
+    console.log("Loading browser window...".yellow);
+
+    loaderWindow = new BrowserWindow({
+        width: 260,
+        height: 410,
+        minHeight: 410,
+        minWidth: 260,
+        maxWidth: 260,
+        maxHeight: 410,
+        frame: true,
+        show: false,
+        icon: path.join(__dirname, "view", "data", "icons", "windows", "cumpoopandshit.png"),
+        transparent: true,
+        autoHideMenuBar: true,
+        resizable: false,
+        titleBarStyle: "hidden",
+        webPreferences: {
+            contextIsolation: false,
+            nodeIntegration: true,
+            nodeIntegrationInSubFrames: true,
+            nodeIntegrationInWorker: true,
+        }
+    });
+
+    loaderWindow.webContents.on("dom-ready", function () {
+
+        loaderWindow.show();
+
+        setTimeout(createBrowserWindow, 2000);
+    });
+
+    loaderWindow.loadURL(url.format({
+        pathname: path.join(__dirname, "view", "loader.html"),
+        slashes: true,
+        protocol: "file:"
+    }));
 
 });
