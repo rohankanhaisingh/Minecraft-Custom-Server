@@ -1,3 +1,7 @@
+const electron = require("electron");
+
+const { ipcRenderer } = electron;
+
 import { emit } from "../../dynamic/socket.js";
 import { Toast } from "../../dynamic/toast.js";
 
@@ -12,7 +16,7 @@ const mainApp = document.querySelector(".app"),
 export let isRunning = false;
 
 export function setServerState(bool) {
-    isRunning = bool
+    isRunning = bool;
 }
 
 export function launchServer() {
@@ -109,7 +113,12 @@ export function launchServer() {
 
 startButton.addEventListener("click", function () {
 
-    if (isRunning) return;
+    if (isRunning) {
+        ipcRenderer.send("app:closeServer", true);
+
+        return;
+
+    };
 
     mainApp.classList.add("in-loader");
     contentLoader.classList.add("visible");

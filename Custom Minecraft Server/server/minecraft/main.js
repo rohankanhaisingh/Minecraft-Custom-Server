@@ -2,7 +2,8 @@ const fs = require("fs"),
     ngrok = require("ngrok"),
     appdata = require("../appdata"),
     path = require("path"),
-    cp = require("child_process");
+    cp = require("child_process"),
+    history = require("../history");
 
 let mainExecutionPath = null;
 
@@ -20,8 +21,8 @@ const processes = {
     },
     /**
      * Event listener on any process.
-     * @param {"ngrok.statusChange" | "ngrok.logEvent"} event
-     * @param {any} callback
+     * @param {"ngrok.statusChange" | "ngrok.logEvent" | "bungeeCord.stdout" | "bungeeCord.stderr" | "bungeeCord.stdin" | "lobby.stdout" | "lobby.stderr" | "lobby.stdin"} event
+     * @param {Function} callback
      */
     on: function (event, callback) {
 
@@ -33,6 +34,55 @@ const processes = {
                 this._events._ngrok["onLogEvent"] = callback;
 
                 return this;
+                break;
+            case "ngrok.statusChange":
+
+                this._events._ngrok["onStatusChange"] = callback;
+
+                return this;
+                break;
+            case "bungeeCord.stdout":
+
+                this._events._bungee["stdout"] = callback;
+
+                return this;
+                break;
+            case "bungeeCord.stdin":
+
+                this._events._bungee["stdin"] = callback;
+
+                return this;
+                break;
+            case "bungeeCord.stderr":
+
+                this._events._bungee["stderr"] = callback;
+
+                return this;
+                break;
+            case "lobby.stdout":
+
+                this._events._lobby["stdout"] = callback;
+
+                return this;
+                break;
+            case "lobby.stdin":
+
+                this._events._lobby["stdin"] = callback;
+
+                return this;
+                break;
+            case "lobby.stderr":
+
+                this._events._lobby["stderr"] = callback;
+
+                return this;
+                break;
+            default:
+
+                throw new Error(`Event '${event}' is not a recognized event for this instance.`);
+
+                return false;
+
                 break;
         }
 
@@ -52,14 +102,13 @@ async function executeThreads(executionPath, memory) {
 
     const token = appdata.initialize().server.token;
 
-    console.log(`Intializing Ngrok client with token '${token}'.`.gray);
-
-    console.log(`Connecting server at port 25577`.gray);
+    history.writeNewData("Ngrok", "log", `Intializing Ngrok client with token '${token}'.`).log();
 
     processes.host = await ngrok.connect({
         proto: "tcp",
         addr: 25565,
         authtoken: token,
+        region: "eu",
         binPath: p => p.replace(p, path.join(executionPath, "Server", "Ngrok")),
         onStatusChange: function (status) {
 
@@ -73,16 +122,16 @@ async function executeThreads(executionPath, memory) {
         }
     });
 
-    console.log(`Succesfully created a Ngrok tunnel. Url: ${processes.host}`.green);
+    history.writeNewData("Ngrok", "success", `Succesfully created a Ngrok tunnel. Url: ${processes.host}.`).log();
 
-    console.log(`Starting BungeeCord server...`.yellow);
+    history.writeNewData("App", "warn", "Executing server processes... It may take a while.").log()
 
     const bungee = require(path.join(mainExecutionPath, "Server", "BungeeCord", "Execute.js"));
 
     processes.bungee = bungee.execute(memory, function (err, stdout, stdin) {
         if (stdout) if (typeof processes._events._bungee["stdout"] === "function") processes._events._bungee["stdout"](stdout);
-        if (err) if (typeof processes._events._bungee["stderr"] === "function") processes._events._bungee["stdout"](err);
-        if (stdin) if (typeof processes._events._bungee["stdin"] === "function") processes._events._bungee["stdout"](stdin);
+        if (err) if (typeof processes._events._bungee["stderr"] === "function") processes._events._bungee["stderr"](err);
+        if (stdin) if (typeof processes._events._bungee["stdin"] === "function") processes._events._bungee["stdin"](stdin);
     });
 
     const lobby = require(path.join(mainExecutionPath, "Server", "Lobby", "Execute.js"));
@@ -90,9 +139,11 @@ async function executeThreads(executionPath, memory) {
     processes.lobby = lobby.execute(memory, function (err, stdout, stdin) {
 
         if (stdout) if (typeof processes._events._lobby["stdout"] === "function") processes._events._lobby["stdout"](stdout);
-        if (err) if (typeof processes._events._lobby["stderr"] === "function") processes._events._lobby["stdout"](err);
-        if (stdin) if (typeof processes._events._lobby["stdin"] === "function") processes._events._lobby["stdout"](stdin);
+        if (err) if (typeof processes._events._lobby["stderr"] === "function") processes._events._lobby["stderr"](err);
+        if (stdin) if (typeof processes._events._lobby["stdin"] === "function") processes._events._lobby["stdin"](stdin);
     });
+
+    return processes;
 }
 
 function setExecutionPath(path) {

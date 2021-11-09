@@ -2,13 +2,14 @@ const electronIsDev = require("electron-is-dev");
 const si = require("systeminformation"),
     fs = require("fs"),
     path = require("path");
+const { writeNewData } = require("../history");
 
 const { getPropertiesFile, saveJSONProperties, getConfigData, saveConfigFile, check } = require("./checkServerFiles");
 const main = require("./main");
 
 function checkJavaInstallation(callback) {
 
-    console.log("Checking installed Java version...".yellow);
+    writeNewData("App", "warn", "Checking installed Java version...").log();
 
     const spawn = require('child_process').spawn('java', ['-version']);
 
@@ -23,7 +24,9 @@ function checkJavaInstallation(callback) {
 
         if (javaVersion) {
             
-            callback(null, javaVersion)
+            callback(null, javaVersion);
+
+            writeNewData("App", "success", `Found version '${javaVersion}'.`).log();
 
             return;
         }
@@ -103,7 +106,7 @@ function checkFormat(data, callback) {
 
     const tempObj = data;
 
-    console.log("Loading system memory status...".yellow);
+    writeNewData("App", "warn", "Loading system memory status...").log();
 
     si.mem(function (res) {
 
@@ -111,12 +114,12 @@ function checkFormat(data, callback) {
             providedMemoryUsage = tempObj.launch.ramUsage === "automatic" ? availableMemory / 2 : tempObj.launch.ramUsage * 1073741824,
             calculation = availableMemory - providedMemoryUsage;
 
-        console.log(`Succesfully loaded system memory status. Available: ${availableMemory}`.green);
+        writeNewData("App", "success", `Succesfully loaded system memory status. Available: ${availableMemory}`).log();
 
         if (providedMemoryUsage > availableMemory) {
 
             if (!electronIsDev) {
-                console.log(`Failed to launch dedicated TCP server. Not enough system memory left in order to operate. Available: ${availableMemory}; Requested: ${providedMemoryUsage}.`.red);
+                writeNewData("App", "error", `Failed to launch dedicated TCP server. Not enough system memory left in order to operate. Available: ${availableMemory}; Requested: ${providedMemoryUsage}.`).log();
 
                 callback({
                     message: `Cannot use provided memory for server. There is only ${availableMemory} bytes of memory left. Requested memory size: ${providedMemoryUsage}`,
@@ -126,7 +129,7 @@ function checkFormat(data, callback) {
 
                 return;
             } else {
-                console.log("Warning: There is no enough system ram memory left in order to operate. Will ignore since application is in dev-mode.".yellow);
+                writeNewData("App", "warn", "Warning: There is no enough system ram memory left in order to operate. Will ignore since application is in dev-mode.").log();
             }
 
         }

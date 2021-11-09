@@ -74,14 +74,14 @@
                                     <div class="app-titlebar-vl"></div>
 
                                     <div class="app-titlebar-appversion">
-                                        <span>Version 0.0.1</span>
+                                        <span>Version 0.1.0</span>
                                     </div>
                                 </div>
 
                                 <div class="app-titlebar-controls">
-                                    <div class="app-titlebar-controls-button button-close" data-trigger="app:close"></div>
-                                    <div class="app-titlebar-controls-button button-full" data-trigger="app:toggleWindowSize"></div>
-                                    <div class="app-titlebar-controls-button button-minimize" data-trigger="app:minimize"></div>
+                                    <div class="app-titlebar-controls-button button-close titlebar-button" data-trigger="app:close"></div>
+                                    <div class="app-titlebar-controls-button button-full titlebar-button" data-trigger="app:toggleWindowSize"></div>
+                                    <div class="app-titlebar-controls-button button-minimize titlebar-button" data-trigger="app:minimize"></div>
                                 </div>
 
                             </div>
@@ -91,24 +91,18 @@
 
                             <div class="app-titlebar-quicklinks">
 
-                                <div class="quicklinks-link">
-                                    <span>Github</span>
-                                </div>
+                                <a href="https://github.com/babahgee">
+                                    <div class="quicklinks-link">
+                                        <span>Github</span>
+                                    </div>
+                                </a>
 
-                                <div class="quicklinks-link">
+                                <div class="quicklinks-link titlebar-button quicklink-app-exit" data-trigger="app:reload">
                                     <span>Reload</span>
                                 </div>
 
-                                <div class="quicklinks-link">
+                                <div class="quicklinks-link titlebar-button quicklink-app-exit" data-trigger="app:close">
                                     <span>Exit</span>
-                                </div>
-
-                                <div class="quicklinks-link">
-                                    <span>Settings</span>
-                                </div>
-
-                                <div class="quicklinks-link">
-                                    <span>Memes</span>
                                 </div>
 
                             </div>

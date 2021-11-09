@@ -32,18 +32,25 @@
     <Content Include="data\details\ServerInfo.json" />
     <Content Include="data\templates\ApplicationData.json" />
     <Content Include="data\templates\ValidateFiles.js" />
+    <Content Include="doc\Ngrok token.md" />
+    <Content Include="doc\Server Files.md" />
+    <Content Include="doc\Server Properties.md" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="server\appdata.js" />
     <Content Include="server\executable\bungee.execute.bat" />
+    <Content Include="server\history.js" />
     <Content Include="server\ipc.js" />
     <Content Include="server\minecraft\checkServerFiles.js" />
-    <Content Include="server\minecraft\hostServer.js" />
+    <Content Include="server\minecraft\createListeners.js" />
     <Content Include="server\minecraft\launchServer.js" />
     <Content Include="server\minecraft\main.js" />
     <Content Include="server\socketServer.js" />
+    <Content Include="server\webserver\main.js" />
+    <Content Include="server\webserver\router.js" />
     <Content Include="view\data\fonts\atures.ttf" />
     <Content Include="view\data\fonts\black.ttf" />
+    <Content Include="view\data\fonts\CascadiaMono.ttf" />
     <Content Include="view\data\fonts\Chopsic-K6Dp.ttf" />
     <Content Include="view\data\fonts\CONSOLA.TTF" />
     <Content Include="view\data\fonts\CONSOLAB.TTF" />
@@ -138,7 +145,12 @@
     <Content Include="view\js\tabs\options\module.fgz2.js" />
     <Content Include="view\js\tabs\options\module.genz.js" />
     <Content Include="view\js\tabs\terminal\index.js" />
+    <Content Include="view\js\tabs\terminal\module.w0zk.js" />
+    <Content Include="view\js\tabs\terminal\module.xi23.js" />
     <Content Include="view\loader.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="view\public\index.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="view\styles\loader.css" />
@@ -644,9 +656,11 @@
     <Folder Include="data\logs\" />
     <Folder Include="data\details\" />
     <Folder Include="data\templates\" />
+    <Folder Include="doc\" />
     <Folder Include="server\" />
     <Folder Include="server\minecraft\" />
     <Folder Include="server\executable\" />
+    <Folder Include="server\webserver\" />
     <Folder Include="view\" />
     <Folder Include="view\data\" />
     <Folder Include="view\data\fonts\" />
@@ -673,6 +687,10 @@
     <Folder Include="view\libs\%40fortawesome\fontawesome-free\sprites\" />
     <Folder Include="view\libs\%40fortawesome\fontawesome-free\svgs\" />
     <Folder Include="view\libs\%40fortawesome\fontawesome-free\svgs\brands\" />
+    <Folder Include="view\public\" />
+    <Folder Include="view\public\data\" />
+    <Folder Include="view\public\scripts\" />
+    <Folder Include="view\public\stylesheets\" />
     <Folder Include="view\styles\tabs\" />
     <Folder Include="view\tabs\" />
     <Folder Include="view\styles\" />

@@ -6,7 +6,8 @@
 
     const { ipcRenderer } = electron;
 
-    const controlButtons = document.querySelectorAll(".app-titlebar-controls-button");
+    const controlButtons = document.querySelectorAll(".titlebar-button");
+
 
     controlButtons.forEach(function (button) {
 

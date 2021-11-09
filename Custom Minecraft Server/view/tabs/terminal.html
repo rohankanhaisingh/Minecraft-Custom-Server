@@ -75,14 +75,14 @@
                                     <div class="app-titlebar-vl"></div>
 
                                     <div class="app-titlebar-appversion">
-                                        <span>Version 0.0.1</span>
+                                        <span>Version 0.1.0</span>
                                     </div>
                                 </div>
 
                                 <div class="app-titlebar-controls">
-                                    <div class="app-titlebar-controls-button button-close" data-trigger="app:close"></div>
-                                    <div class="app-titlebar-controls-button button-full" data-trigger="app:toggleWindowSize"></div>
-                                    <div class="app-titlebar-controls-button button-minimize" data-trigger="app:minimize"></div>
+                                    <div class="app-titlebar-controls-button button-close titlebar-button" data-trigger="app:close"></div>
+                                    <div class="app-titlebar-controls-button button-full titlebar-button" data-trigger="app:toggleWindowSize"></div>
+                                    <div class="app-titlebar-controls-button button-minimize titlebar-button" data-trigger="app:minimize"></div>
                                 </div>
 
                             </div>
@@ -92,25 +92,27 @@
 
                             <div class="app-titlebar-quicklinks">
 
-                                <div class="quicklinks-link">
-                                    <span>Github</span>
-                                </div>
+                                <a href="https://github.com/babahgee">
+                                    <div class="quicklinks-link">
+                                        <span>Github</span>
+                                    </div>
+                                </a>
 
-                                <div class="quicklinks-link">
+                                <div class="quicklinks-link titlebar-button quicklink-app-exit" data-trigger="app:reload">
                                     <span>Reload</span>
                                 </div>
 
-                                <div class="quicklinks-link">
+                                <div class="quicklinks-link titlebar-button quicklink-app-exit" data-trigger="app:close">
                                     <span>Exit</span>
                                 </div>
 
-                                <div class="quicklinks-link">
+                                <!--<div class="quicklinks-link">
                                     <span>Settings</span>
                                 </div>
 
                                 <div class="quicklinks-link">
                                     <span>Memes</span>
-                                </div>
+                                </div>-->
 
                             </div>
 
@@ -133,14 +135,14 @@
                         </div>
                     </div>
 
-                    <div class="app-contentloader">
+                    <div class="app-contentloader visible">
                         <div class="container">
 
                             <canvas class="contentloader-canvas"></canvas>
 
                             <div class="contentloader-spinner"></div>
                             <div class="contentloader-text">
-                                <span>Rendering items.</span>
+                                <span>Setting up virtual terminal.</span>
                             </div>
 
                         </div>
@@ -198,22 +200,55 @@
                                         <p class="terminal-nav-detail terminal-nav-detail-wrapper terminal-detail-cpu_usage">CPU: 0%</p>
                                         <p class="terminal-nav-detail terminal-nav-detail-wrapper terminal-detail-mem_usage">Memory: 0%</p>
                                         <p class="terminal-nav-detail terminal-nav-detail-wrapper terminal-detail-storage_usage">Storage: 0%</p>
+
+                                        <div class="terminal-nav-dropdown dropdown-streamtype">
+
+                                            <div class="dropdown-streamtype-value">
+                                                <span>All</span>
+                                            </div>
+
+                                            <div class="dropdown-streamtype-list hidden">
+                                                <ul>
+                                                    <li class="dropdown-streamtype-list-item">
+                                                        <span>All</span>
+                                                    </li>
+                                                    <li class="dropdown-streamtype-list-item warning">
+                                                        <span>Warn</span>
+                                                    </li>
+                                                    <li class="dropdown-streamtype-list-item success">
+                                                        <span>Success</span>
+                                                    </li>
+                                                    <li class="dropdown-streamtype-list-item error">
+                                                        <span>Error</span>
+                                                    </li>
+                                                    <li class="dropdown-streamtype-list-item shitpost">
+                                                        <span>Shitpost</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </nav>
 
                                 <div class="terminal-output">
 
-                                    <div class="terminal-output-stream stream-main">
+                                    <div class="terminal-output-stream stream-main collapsed">
                                         <div class="stream-type">
                                             <span>App</span>
                                         </div>
                                         <div class="stream-content">
-                                            <span>Poop</span>
+                                            <span>Minecraft: Custom Server (version 0.1.0), beta application. Started event listeners from the server and other processes <br /><br /> Enter <strong class="stream-command">Help @a</strong> for a guide of all available (in-app) commands. Contact the developer for more information about a topic.</span>
                                         </div>
                                     </div>
 
                                 </div>
 
+                                <div class="terminal-input-wrapper">
+
+                                    <div class="terminal-input" contenteditable="true" autocomplete="false" spellcheck="false" data-placeholder="Enter a command. Example 'app:exit', 'spigot:say hi'"></div>
+
+                                </div>
                             </div>
                         </div>
 

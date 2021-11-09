@@ -1,5 +1,8 @@
 const { ipcMain, app, BrowserWindow } = require("electron");
 const colors = require("colors");
+const { writeNewData } = require("./history");
+const main = require("./minecraft/main");
+
 
 /**
  * Handles IPC events from the client.
@@ -7,7 +10,7 @@ const colors = require("colors");
  */
 function handle(mainWindow) {
 
-    console.log("Started listeners on IPC thread.".gray);
+    writeNewData("App", "log", "Listening for IPC events on main thread.").log();
 
     ipcMain.on("app:close", function (event, args) {
 
@@ -30,6 +33,29 @@ function handle(mainWindow) {
 
     ipcMain.on("app:minimize", function (event, args) {
         mainWindow.minimize();
+    });
+
+    ipcMain.on("app:closeServer", function (event, args) {
+
+        console.log(true);
+
+        if (main.processes.bungee !== null) main.processes.bungee.kill();
+        if (main.processes.lobby !== null) main.processes.lobby.kill();
+
+        app.relaunch();
+        app.exit(0);
+
+
+    });
+
+    ipcMain.on("app:reload", function () {
+
+        if (main.processes.bungee !== null) main.processes.bungee.kill();
+        if (main.processes.lobby !== null) main.processes.lobby.kill();
+
+        app.relaunch();
+        app.exit(0);
+
     });
 
 }

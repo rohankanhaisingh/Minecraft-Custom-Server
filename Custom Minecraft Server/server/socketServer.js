@@ -1,29 +1,43 @@
+// Import necessary modules.
 const fs = require("fs"),
     electron = require("electron"),
     path = require("path"),
     url = require("path"),
     colors = require("colors");
 
-const launch = require("./minecraft/launchServer");
+const app = require("../app");
 
-const { overWriteData } = require("./appdata");
-const { check, saveJSONProperties, getPropertiesFile } = require("./minecraft/checkServerFiles");
+const { writeNewData, getHistoryContents } = require("./history");
 
-const main = require("./minecraft/main");
+const launch = require("./minecraft/launchServer"),
+    { overWriteData } = require("./appdata"),
+    { check, saveJSONProperties, getPropertiesFile } = require("./minecraft/checkServerFiles"),
+    main = require("./minecraft/main"),
+    { processes } = require("./minecraft/main"),
+    listeners = require("./minecraft/createListeners");
 
-const { processes } = require("./minecraft/main");
+// Import 'dialog' object from imported Electron module.
+const { dialog, BrowserWindow, ipcMain } = electron;
 
-const { dialog } = electron;
+let activeSocket = null;
 
+/**
+ * Listen for SocketIO events.
+ * @param {socketio.Client} socket
+ * @param {BrowserWindow} window
+ */
 function listen(socket, window) {
 
+    activeSocket = socket;
+
+    // Event from the client to create a application warning box.
     socket.on("app:warningDialogClientSide", function (args) {
 
         dialog.showMessageBox(window, {
             title: typeof args.title !== "undefined" ? args.title : "Minecraft: Custom Server",
             type: "warning",
             message: typeof args.message !== "undefined" ? args.message : "Something went wrong!",
-            detail: typeof args.detail !== "undefined" ? args.detail : "bruh"
+            detail: typeof args.detail !== "undefined" ? args.detail : "Bruh, something broke. Idk what you did lol"
         });
 
     });
@@ -101,7 +115,16 @@ function listen(socket, window) {
 
             console.log(`Found java version ${response.version}.`.green);
 
-            await main.executeThreads(main.mainExecutionPath, data.launch.ramUsage);
+            // Creating event listeners
+            listeners.listen(function (res) {
+
+                socket.emit("app:serverState", res);
+
+                socket.broadcast.emit("app:serverState", res);
+
+            });
+
+            const threads = await main.executeThreads(main.mainExecutionPath, data.launch.ramUsage);
 
             socket.emit("app_response:runningServer", {
                 host: processes.host,
@@ -183,8 +206,93 @@ function listen(socket, window) {
 
     });
 
+    socket.on("app:getHistoryContent", function (args) {
+
+        const type = args.type;
+
+        const historyData = getHistoryContents();
+
+        if (type === null) {
+
+            socket.emit("app_response:getHistoryContent", historyData.content);
+
+            return;
+        }
+
+        socket.emit("app_response:getHistoryContent", historyData.filterByType(type));
+
+    });
+
+    socket.on("app:executionCommands", function (args) {
+
+        let executionReturnValue = null;
+
+        switch (args.target) {
+
+            case "process":
+
+                executionReturnValue = null;
+
+                try {
+                    executionReturnValue = eval(args.executionData);
+                } catch (err) {
+                    executionReturnValue = {
+                        type: "error",
+                        message: err.message
+                    };
+                }
+
+                socket.emit("app_response:executionCommands", {
+                    data: executionReturnValue,
+                    timestamp: Date.now(),
+                    emitter: "process",
+                });
+
+                break;
+            case "bungee":
+
+                executionReturnValue = null;
+
+                try {
+                    executionReturnValue = main.processes.bungee.writeIntoProcess(args.executionData);
+                } catch (err) {
+                    executionReturnValue = {
+                        type: "error",
+                        message: err.message
+                    };
+                }
+
+                socket.emit("app_response:executionCommands", {
+                    data: executionReturnValue,
+                    timestamp: Date.now(),
+                    emitter: "process",
+                });
+
+                break;
+            case "spigot":
+
+                try {
+                    executionReturnValue = main.processes.lobby.writeIntoProcess(args.executionData);
+                } catch (err) {
+                    executionReturnValue = {
+                        type: "error",
+                        message: err.message
+                    };
+                }
+
+                socket.emit("app_response:executionCommands", {
+                    data: executionReturnValue,
+                    timestamp: Date.now(),
+                    emitter: "process",
+                });
+
+                break;
+        }
+
+    });
 }
 
 module.exports = {
-    listen: listen
+    listen: listen,
+    activeSocket: activeSocket
 }

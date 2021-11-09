@@ -4,14 +4,15 @@ const fs = require("fs"),
     pToJSON = require("properties-to-json"),
     yaml = require("js-yaml"),
     jsonToYaml = require("json2yaml");
+const { writeNewData } = require("../history");
 
 const main = require("./main");
 
 
 /**
  * Check server files in selected directory.
- * @param {any} data
- * @param {any} callback
+ * @param {object} data
+ * @param {Function} callback
  */
 function check(data, callback) {
 
@@ -94,7 +95,7 @@ function saveJSONProperties(filePath, data) {
 
     fs.writeFileSync(filePath, formattedData, { encoding: "utf-8" });
 
-    console.log(`Wrote new data in file '${filePath}'.`.gray);
+    writeNewData("App", "log", `Wrote new data in file '${filePath}'.`).log();
 
     return formattedData;
 }
@@ -149,7 +150,7 @@ function saveConfigFile(filePath, data) {
 
     fs.writeFileSync(filePath, formattedData, { encoding: "utf-8" });
 
-    console.log(`Wrote new data in file '${filePath}'.`.gray)
+    writeNewData("App", "log", `Wrote new data in file '${filePath}'.`).log();
 
     return formattedData;
 }

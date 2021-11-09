@@ -1,42 +1,42 @@
-console.clear(0);
-
 const url = require("url"),
     path = require("path"),
     electron = require("electron"),
     isDev = require("electron-is-dev"),
-    socketio = require("socket.io"),
-    express = require("express"),
+    socketio = require("socket.io");
     fs = require("fs"),
     colors = require("colors");
 
+// Custom modules.
 const { initialize } = require("./server/appdata");
 const { handle } = require("./server/ipc");
 const { listen } = require("./server/socketServer");
+
+const history = require("./server/history");
 const main = require("./server/minecraft/main");
+const webServer = require("./server/webserver/main");
 
-const { app, BrowserWindow, ipcMain, dialog } = electron;
+process.env.SOCKET = 8000; // Setting main socket port to 8000.
 
-process.env.SOCKET = 8000;
+const { app,
+    BrowserWindow,
+    ipcMain,
+    dialog } = electron,
+    io = socketio(8000),
+    currentOS = process.platform;
 
-const io = socketio(8000);
+if (currentOS !== "win32") process.exit(); // If the platform string is not equal to 'win32'.
 
-const currentOS = process.platform;
-
-if (currentOS !== "win32") {
-
-    process.exit();
-
-    return;
-};
-
-const parsedAppData = initialize();
-
-let mainWindow, activeClient, loaderWindow;
+let parsedAppData = initialize(), mainWindow, activeClient, loaderWindow, historyContent = history.initialize();
 
 console.log("Initializing application...".yellow);
 
+webServer.listen();
 
+/**Creates a browser window. */
 function createBrowserWindow() {
+
+    history.writeNewData("App", "warn", "Creating main browser window...").log();
+
     mainWindow = new BrowserWindow({
         title: "Custom Minecraft Server",
         backgroundColor: "#1a1a1a",
@@ -57,10 +57,15 @@ function createBrowserWindow() {
         }
     });
 
-    mainWindow.webContents.on("dom-ready", function () {
+    // Event when all dom elements are ready.
+    mainWindow.webContents.once("dom-ready", function () {
 
+        history.writeNewData("App", "success", `Succesfully loaded webcontents at ${new Date()}.`).log()
+
+        // Make the main window visible.
         mainWindow.show();
 
+        // If the variable 'loaderWindow' is not null, try to destroy it.
         if (loaderWindow !== null) {
             loaderWindow.hide();
             loaderWindow.close();
@@ -70,27 +75,29 @@ function createBrowserWindow() {
 
     });
 
+    // Handle IPC streams from and and out the main window.
     handle(mainWindow);
 
+    // Handle SocketIO streams.
     io.sockets.on("connection", async function (socket) {
 
-        console.log(`New socket with id '${socket.id}' has been connected at ${new Date()}`.gray);
-
+        // Set the active client to the connected client.
         activeClient = socket;
 
+        // Listen for events from the connected socket.
         listen(socket, mainWindow);
     });
 
-    mainWindow.webContents.once("dom-ready", function () {
-        console.log("Succesfully loaded browser window.".green);
-    });
-
+    // Check if property 'server' of object 'parsedAppData' exist.
     if (typeof parsedAppData.server !== "undefined") {
+
+        // If property 'path' of object 'server' exists.
         if (parsedAppData.server.path !== null) {
 
             // Check if path exist.
             const dir = fs.existsSync(parsedAppData.server.path);
 
+            // If path doesn't exist, load the setup page.
             if (!dir) {
 
                 mainWindow.loadURL(url.format({
@@ -102,7 +109,11 @@ function createBrowserWindow() {
                 return;
             }
 
+            // If it does exist, set the execution path to a global variable and load the main page.
+
             main.mainExecutionPath = parsedAppData.server.path;
+
+            history.writeNewData("App", "success", `Found server execution files in '${parsedAppData.server.path}'.`).log();
 
             mainWindow.loadURL(url.format({
                 pathname: path.join(__dirname, "view", "tabs", "index.html"),
@@ -110,6 +121,8 @@ function createBrowserWindow() {
                 protocol: "file:"
             }));
         } else {
+
+            // Load the setup page if not the case.
             mainWindow.loadURL(url.format({
                 pathname: path.join(__dirname, "view", "setup.html"),
                 slashes: true,
@@ -117,6 +130,8 @@ function createBrowserWindow() {
             }));
         }
     } else {
+
+        // Same here.
         mainWindow.loadURL(url.format({
             pathname: path.join(__dirname, "view", "setup.html"),
             slashes: true,
@@ -125,12 +140,14 @@ function createBrowserWindow() {
     }
 }
 
+// Event when main Electron app is ready.
 app.once("ready", function () {
 
-    console.log("Succesfully initialized application".green);
+    history.writeNewData("App", "success", "Succesfully initialized Electron application.").log();
 
-    console.log("Loading browser window...".yellow);
+    history.writeNewData("App", "warn", "Loading browser window...").log();
 
+    // Create a new loader browser window.
     loaderWindow = new BrowserWindow({
         width: 260,
         height: 410,
@@ -153,13 +170,17 @@ app.once("ready", function () {
         }
     });
 
+    // Event when the dom content is ready in the loader.
     loaderWindow.webContents.on("dom-ready", function () {
 
+        // Show the loader itself.
         loaderWindow.show();
 
+        // Create the main browser window after 2 seconds.
         setTimeout(createBrowserWindow, 2000);
     });
 
+    // Load the loader page.
     loaderWindow.loadURL(url.format({
         pathname: path.join(__dirname, "view", "loader.html"),
         slashes: true,
@@ -167,3 +188,7 @@ app.once("ready", function () {
     }));
 
 });
+
+module.exports = {
+    activeClient: activeClient
+}
