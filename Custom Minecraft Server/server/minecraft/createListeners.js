@@ -127,7 +127,7 @@ function listen(callback) {
 
         callback(x);
 
-        history.writeNewData("Bungee", x.type, newData.message).log();
+        history.writeNewData("Bungee", x.type, x.data).log();
 
     });
 
