@@ -1,20 +1,44 @@
 {
-  "version": "0.0.1",
+  "version": "0.1.1",
   "developer": "Babah Gee",
   "socials": {
     "discord": "https://discord.gg/HQFWguAEVP",
     "instagram": null
   },
-  "modules": [],
-  "minecraft": {
-    "path": null,
-    "output": null
+  "modules": {
+    "important": [ "express", "socket.io", "socket.io-client", "electron", "mineflayer" ]
   },
-  "server": {
-    "path": null,
-    "token": null,
-    "name": null,
-    "owner": null,
-    "output": null
+    "minecraft": {
+      "path": null,
+      "output": null
+    },
+    "server": {
+      "path": null,
+      "token": null,
+      "name": null,
+      "owner": null,
+      "output": null
+    },
+    "application": {
+      "appearance": {
+        "background": {
+          "src": null,
+          "directoryPath": null,
+          "imageSize": "auto",
+          "animateOnLaunch": true
+        },
+        "windowSize": {
+            "width": 800,
+            "height": 700
+          }
+        },
+      "permissions": {
+        "perm.readFiles": true,
+        "perm.writeFiles": true,
+        "perm.removeFiles": true,
+        "perm.downloadFiles": true,
+        "perm.extractFiles": true,
+        "perm.readHardwareInfo": true
+      }
+    }
   }
-}

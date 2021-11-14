@@ -333,6 +333,10 @@
         box-shadow: 0px 5px 10px #101010;
     }
 
+    .group-content-toggle.disabled, .group-content-toggle.disabled * {
+        cursor: not-allowed;
+    }
+
 
 .group-content-range {
     width: 200px;
@@ -420,6 +424,21 @@
         .group-content-number input:focus {
             box-shadow: 0px 3px 10px #040404;
         }
+
+.group-content-input {
+    width: 280px;
+    height: 20px;
+    float: left;
+    padding: 5px 20px;
+    background: #fff;
+    border-radius: 30px;
+    margin-left: 10px;
+    font-family: 'RobotoLight';
+    font-size: 12px;
+    color: #000;
+    line-height: 20px;
+}
+
 
 .app-footer {
     width: calc(100% - 40px);

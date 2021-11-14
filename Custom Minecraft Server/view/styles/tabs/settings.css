@@ -1,0 +1,117 @@
+.settings-wallpaper-grid {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 4fr);
+    margin-bottom: 20px;
+}
+
+.settings-wallpaper-grid-images {
+    display: contents;
+}
+
+.settings-wallpaper-grid-item {
+    display: inline-grid;
+    background: none;
+    position: relative;
+    content: "";
+    height: auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    margin: 10px 0px;
+    -moz-transition: all .5s cubic-bezier(0, 1, 1, 1);
+    -o-transition: all .5s cubic-bezier(0, 1, 1, 1);
+    -webkit-transition: all .5s cubic-bezier(0, 1, 1, 1);
+    transition: all .5s cubic-bezier(0, 1, 1, 1);
+}
+
+    .settings-wallpaper-grid-item img {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+        user-select: none;
+        pointer-events: none;
+        -moz-transition: all .5s cubic-bezier(0, 1, 1, 1);
+        -o-transition: all .5s cubic-bezier(0, 1, 1, 1);
+        -webkit-transition: all .5s cubic-bezier(0, 1, 1, 1);
+        transition: all .5s cubic-bezier(0, 1, 1, 1);
+    }
+
+    .settings-wallpaper-grid-item:hover {
+        padding: 2px;
+    }
+
+    .settings-wallpaper-grid-item:hover img {
+        box-shadow: 0px 5px 10px #0e0e0e;
+    }
+
+    .settings-wallpaper-grid-item.active {
+        border: 2px solid #fff;
+        background: #fff;
+    }
+
+        .settings-wallpaper-grid-item.active img {
+            box-shadow: 0px 5px 10px #0e0e0e;
+        }
+
+    .settings-wallpaper-grid-item.button-add {
+        position: relative;
+        content: "";
+        background: rgb(0 0 0 / 50%);
+    }
+
+    .settings-wallpaper-grid-item.button-add:before, .settings-wallpaper-grid-item.button-add:after {
+        width: 20px;
+        height: 1px;
+        position: absolute;
+        content: "";
+        background: #fff;
+        inset: 0;
+        margin: auto;
+    }
+
+    .settings-wallpaper-grid-item.button-add:before {
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+        .settings-wallpaper-grid-item.button-add:hover {
+            background: rgb(0 0 0 / 76%);
+            box-shadow: 0px 5px 10px #0e0e0e;
+        }
+
+            .settings-wallpaper-grid-item.button-add:hover:before{
+                -moz-animation: setting-wallpaper-grid-item-hover-animate 1s ease infinite;
+                -o-animation: setting-wallpaper-grid-item-hover-animate 1s ease infinite;
+                -webkit-animation: setting-wallpaper-grid-item-hover-animate 1s ease infinite;
+                animation: setting-wallpaper-grid-item-hover-animate 1s ease infinite;
+            }
+
+            .settings-wallpaper-grid-item.button-add:hover:after {
+                -moz-animation: setting-wallpaper-grid-item-hover-animate 1s cubic-bezier(0, 1, 1, 1) infinite;
+                -o-animation: setting-wallpaper-grid-item-hover-animate 1s cubic-bezier(0, 1, 1, 1) infinite;
+                -webkit-animation: setting-wallpaper-grid-item-hover-animate 1s cubic-bezier(0, 1, 1, 1) infinite;
+                animation: setting-wallpaper-grid-item-hover-animate 1s cubic-bezier(0, 1, 1, 1) infinite;
+            }
+
+@keyframes setting-wallpaper-grid-item-hover-animate {
+    0% {
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

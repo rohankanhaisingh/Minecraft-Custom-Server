@@ -107,7 +107,7 @@ async function executeThreads(executionPath, memory) {
     processes.host = await ngrok.connect({
         proto: "tcp",
         addr: 25565,
-        authtoken: token,
+        authtoken: token === null ? null : token,
         region: "eu",
         binPath: p => p.replace(p, path.join(executionPath, "Server", "Ngrok")),
         onStatusChange: function (status) {

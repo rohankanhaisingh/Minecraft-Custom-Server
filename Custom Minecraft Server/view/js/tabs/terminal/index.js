@@ -12,7 +12,8 @@ const mainApp = document.querySelector(".app"),
     terminalNavDropdownButton = document.querySelector(".dropdown-streamtype-value"),
     terminalNavDropdown = document.querySelector(".dropdown-streamtype-list"),
     terminalNavDropdownItems = document.querySelectorAll(".dropdown-streamtype-list-item"),
-    terminalNavMainDropdown = document.querySelector(".terminal-nav-dropdown");
+    terminalNavMainDropdown = document.querySelector(".terminal-nav-dropdown"),
+    appWallpaper = document.querySelector(".app-background img");
 
 /**
  * Handles history streams.
@@ -68,6 +69,13 @@ terminalNavDropdownItems.forEach(function (button) {
 });
 
 window.addEventListener("load", function () {
+
+    emit("app:getDefaultWallpaper", location.href);
+
+    listen("app_response:getDefaultWallpaper", function (res) {
+
+        appWallpaper.src = res.data;
+    });
 
     this.setTimeout(function () {
 

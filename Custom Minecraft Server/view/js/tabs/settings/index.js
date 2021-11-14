@@ -5,16 +5,13 @@ import "../../static/static.contentloader.js";
 import "../../static/static.titlebar.js";
 import "../../static/static.animations.js";
 
-import "./module.so1s.js";
-import "./module.sivn.js";
+import { applyChanges } from "./module.rdfq.js";
 
 const mainApp = document.querySelector(".app"),
     contentLoader = document.querySelector(".app-contentloader"),
     toggleButtons = document.querySelectorAll(".group-content-toggle"),
     tabGroups = document.querySelectorAll(".app-tabcontent-group"),
-    startButton = document.querySelector(".server-startbutton"),
-    statusHeader = document.querySelector(".server-status"),
-    appWallpaper = document.querySelector(".app-background img");
+    appWallpaper = document.querySelector("img.main-visible-background");
 
 tabGroups.forEach(function (group) {
 
@@ -55,10 +52,10 @@ tabGroups.forEach(function (group) {
 
 });
 
-
 toggleButtons.forEach(function (button) {
 
-    const valueNodes = button.querySelectorAll(".toggle-value");
+    const valueNodes = button.querySelectorAll(".toggle-value"),
+        buttonName = button.getAttribute("data-id");
 
     button.addEventListener("click", function () {
 
@@ -87,13 +84,12 @@ toggleButtons.forEach(function (button) {
             valueNodes[1].classList.add("active");
         }
 
+        applyChanges(buttonName, button.getAttribute("data-value"))
     });
 
 });
 
-
 window.addEventListener("load", function () {
-
 
     emit("app:getDefaultWallpaper", location.href);
 
@@ -101,8 +97,6 @@ window.addEventListener("load", function () {
 
         appWallpaper.src = res.data;
     });
-
-    emit("app:getServerState");
 
     this.setTimeout(function () {
 

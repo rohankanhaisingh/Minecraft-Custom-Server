@@ -79,16 +79,20 @@ function writeNewData(historyStream, historyType, historyContent) {
 
     const existingData = getHistoryContents().content;
 
-    existingData.push({
-        stream: historyStream,
-        type: historyType,
-        content: historyContent,
-        timestamp: Date.now()
-    });
+    if (typeof existingData !== "undefined") {
 
-    const historyPath = ad.getFileLocation(path.join("Application Data", "history.json"));
+        existingData.push({
+            stream: historyStream,
+            type: historyType,
+            content: historyContent,
+            timestamp: Date.now()
+        });
 
-    fs.writeFileSync(historyPath, JSON.stringify(existingData, null, 2));
+        const historyPath = ad.getFileLocation(path.join("Application Data", "history.json"));
+
+        fs.writeFileSync(historyPath, JSON.stringify(existingData, null, 2));
+
+    }
 
 
     return {

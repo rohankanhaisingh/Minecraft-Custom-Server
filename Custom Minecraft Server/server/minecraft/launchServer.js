@@ -4,7 +4,7 @@ const si = require("systeminformation"),
     path = require("path");
 const { writeNewData } = require("../history");
 
-const { getPropertiesFile, saveJSONProperties, getConfigData, saveConfigFile, check } = require("./checkServerFiles");
+const { getPropertiesFile, saveJSONProperties, getConfigData, saveConfigFile, check } = require("./fileManager");
 const main = require("./main");
 
 function checkJavaInstallation(callback) {

@@ -101,6 +101,15 @@ h4 strong, h5 strong, h6 strong {
     .app-wallpaper img {
         width: auto;
         height: 140vh;
+        -moz-transition: height 0.3s ease, width .3s ease;
+        -o-transition: height 0.3s ease, width .3s ease;
+        -webkit-transition: height 0.3s ease, width .3s ease;
+        transition: height 0.3s ease, width .3s ease;
+    }
+
+    .app-wallpaper img.fit-to-size {
+        width: 100vw;
+        height: 140vh;
     }
 
 .app-contents {

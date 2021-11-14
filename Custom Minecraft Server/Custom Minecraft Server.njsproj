@@ -37,17 +37,20 @@
     <Content Include="doc\Server Properties.md" />
     <Content Include="package.json" />
     <Content Include="README.md" />
+    <Content Include="release.md" />
     <Content Include="server\appdata.js" />
     <Content Include="server\executable\bungee.execute.bat" />
     <Content Include="server\history.js" />
     <Content Include="server\ipc.js" />
-    <Content Include="server\minecraft\checkServerFiles.js" />
+    <Content Include="server\minecraft\fileManager.js" />
     <Content Include="server\minecraft\createListeners.js" />
     <Content Include="server\minecraft\launchServer.js" />
     <Content Include="server\minecraft\main.js" />
+    <Content Include="server\minecraft\versions.json" />
     <Content Include="server\socketServer.js" />
     <Content Include="server\webserver\main.js" />
     <Content Include="server\webserver\router.js" />
+    <Content Include="todo.txt" />
     <Content Include="view\data\fonts\atures.ttf" />
     <Content Include="view\data\fonts\black.ttf" />
     <Content Include="view\data\fonts\CascadiaMono.ttf" />
@@ -125,14 +128,17 @@
     <Content Include="view\data\icons\icon_settings.png" />
     <Content Include="view\data\icons\icon_sliders.png" />
     <Content Include="view\data\icons\icon_terminal.png" />
+    <Content Include="view\data\icons\windows\cumpoopandshit.ico" />
     <Content Include="view\data\icons\windows\cumpoopandshit.png" />
     <Content Include="view\data\icons\windows\ghhhhrhrreeeeenfdjkdfkjghsd.png" />
     <Content Include="view\data\images\beans.jpg" />
     <Content Include="view\data\images\discord.png" />
     <Content Include="view\data\images\gifs\obama-gaming-sphere.gif" />
     <Content Include="view\data\images\user.png" />
+    <Content Include="view\data\images\wallpapers\ecqwer343E43Q.jpg" />
     <Content Include="view\data\images\wallpapers\bg-wallpaper-main.jpg" />
     <Content Include="view\data\images\wallpapers\bg-wallpaper-mountain.jpg" />
+    <Content Include="view\data\images\wallpapers\europe.jpg" />
     <Content Include="view\data\images\wallpaper_abstract.jpg" />
     <Content Include="view\data\images\wallpaper_abstract_white.jpg" />
     <Content Include="view\js\dynamic\generateUniqueID.js" />
@@ -144,6 +150,8 @@
     <Content Include="view\js\tabs\options\module.fart.js" />
     <Content Include="view\js\tabs\options\module.fgz2.js" />
     <Content Include="view\js\tabs\options\module.genz.js" />
+    <Content Include="view\js\tabs\settings\index.js" />
+    <Content Include="view\js\tabs\settings\module.rdfq.js" />
     <Content Include="view\js\tabs\terminal\index.js" />
     <Content Include="view\js\tabs\terminal\module.w0zk.js" />
     <Content Include="view\js\tabs\terminal\module.xi23.js" />
@@ -154,6 +162,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="view\styles\loader.css" />
+    <Content Include="view\styles\tabs\settings.css" />
     <Content Include="view\styles\static\static.toast.css" />
     <Content Include="view\styles\tabs\main.css" />
     <Content Include="view\styles\tabs\options.css" />
@@ -647,6 +656,9 @@
     <Content Include="view\tabs\options.html">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="view\tabs\settings.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="view\tabs\terminal.html">
       <SubType>Code</SubType>
     </Content>
@@ -674,6 +686,7 @@
     <Folder Include="view\js\tabs\" />
     <Folder Include="view\js\static\" />
     <Folder Include="view\js\tabs\main\" />
+    <Folder Include="view\js\tabs\settings\" />
     <Folder Include="view\js\tabs\terminal\" />
     <Folder Include="view\js\tabs\options\" />
     <Folder Include="view\libs\" />

@@ -3,6 +3,8 @@ const colors = require("colors");
 const { writeNewData } = require("./history");
 const main = require("./minecraft/main");
 
+const { removeAppdataContents } = require("./appdata");
+
 
 /**
  * Handles IPC events from the client.
@@ -56,6 +58,14 @@ function handle(mainWindow) {
         app.relaunch();
         app.exit(0);
 
+    });
+
+    ipcMain.on("app:force_refresh", function (event, args) {
+
+        removeAppdataContents();
+
+        app.relaunch();
+        app.exit(0);
     });
 
 }

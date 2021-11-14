@@ -10,14 +10,21 @@ const app = require("../app");
 const { writeNewData, getHistoryContents } = require("./history");
 
 const launch = require("./minecraft/launchServer"),
-    { overWriteData } = require("./appdata"),
-    { check, saveJSONProperties, getPropertiesFile } = require("./minecraft/checkServerFiles"),
+    appData = require("./appdata"),
+    fileManager = require("./minecraft/fileManager"),
     main = require("./minecraft/main"),
     { processes } = require("./minecraft/main"),
     listeners = require("./minecraft/createListeners");
 
 // Import 'dialog' object from imported Electron module.
-const { dialog, BrowserWindow, ipcMain } = electron;
+const {
+    dialog,
+    BrowserWindow,
+    ipcMain,
+    Notification
+} = electron;
+
+const $app = electron.app;
 
 let activeSocket = null;
 
@@ -26,7 +33,7 @@ let activeSocket = null;
  * @param {socketio.Client} socket
  * @param {BrowserWindow} window
  */
-function listen(socket, window) {
+async function listen(socket, window) {
 
     activeSocket = socket;
 
@@ -46,7 +53,7 @@ function listen(socket, window) {
 
         const mainPath = path.join(main.mainExecutionPath, "Server", "lobby", res.fileName);
 
-        const existingData = getPropertiesFile().parsedData;
+        const existingData = fileManager.getPropertiesFile().parsedData;
         const newData = res.data;
 
         for (let key in newData) {
@@ -64,7 +71,7 @@ function listen(socket, window) {
 
         }
 
-        const saveState = saveJSONProperties(mainPath, existingData);
+        const saveState = fileManager.saveJSONProperties(mainPath, existingData);
 
         socket.emit("app_respnse:applychanges", {
             res: res,
@@ -74,7 +81,7 @@ function listen(socket, window) {
 
     socket.on("app:getPropertiesFile", function () {
 
-        const file = getPropertiesFile();
+        const file = fileManager.getPropertiesFile();
 
         socket.emit("app_response:getPropertiesFile", file);
 
@@ -145,81 +152,47 @@ function listen(socket, window) {
         });
     });
 
-    socket.on("app:setup:checkInputFields", function (data) {
+    socket.on("app:prepareInstallation", async function (data) {
 
-        let isValid = false;
+        const res = await fileManager.prepareInstallation(data, function (err, _res) {
 
-        let errorCodes = [];
-
-        for (let key in data) {
-
-            switch (key) {
-                case "server:path":
-
-                    if (!fs.existsSync(data[key])) {
-                        errorCodes.push(`Path '${data[key]}' does not exit. Please enter the correct path.`);
-                    }
-
-                    break;
-            }
-
-        }
-
-        if (errorCodes.length == 0) {
-
-            check(data, function (res) {
-
-                switch (res.state) {
-                    case "ready":
-
-                        const tempObj = {
-                            path: data["server:path"],
-                            token: data["server:token"],
-                            name: data["server:name"] === null ? "A cool Minecraft Server" : data["server:name"],
-                            owner: data["server:owner"] === null ? "Admin" : data["server:owner"],
-                            modt: data["server:motd"] === null ? "MOTD" : data["server:motd"],
-                            output: data["app:outputpath"] === null ? data["server:path"] : data["app:outputpath"],
-                        }
-
-                        overWriteData({ server: tempObj }, function () {
-
-                            socket.emit("app:changepage", "main");
-
-                        });
-
-                        break;
-                }
-
+            const wNotification = new Notification({
+                title: "Installation completed",
+                body: "Installation has succesfully been executed. Will restart application now..."
             });
 
-        } else {
+            wNotification.show();
+
+            $app.relaunch();
+            $app.exit(0);
+
+        });
+
+        if (res instanceof Error) {
+
+            socket.emit("apps_response:prepareInstallation", {
+                type: "error",
+                message: res.message
+            });
 
             dialog.showMessageBox(window, {
-                title: "An error has occurred",
-                type: "warning",
-                message: `Something went wrong while executing the program.`,
-                detail: errorCodes.join("\n")
+                title: typeof res.title !== "undefined" ? res.title : "Minecraft: Custom Server",
+                type: "error",
+                message: "Bruh! Don't worry, you didn't break the app",
+                detail: typeof res.message !== "undefined" ? res.message : "Bruh, something broke. Idk what you did lol"
             });
 
-            socket.emit("app_response:setup:checkInputFields", errorCodes);
+            return;
         }
 
     });
 
     socket.on("app:getHistoryContent", function (args) {
 
-        const type = args.type;
+        const type = args.type,
+            historyData = getHistoryContents();
 
-        const historyData = getHistoryContents();
-
-        if (type === null) {
-
-            socket.emit("app_response:getHistoryContent", historyData.content);
-
-            return;
-        }
-
-        socket.emit("app_response:getHistoryContent", historyData.filterByType(type));
+        socket.emit("app_response:getHistoryContent", type === null ? historyData.content : historyData.filterByType(type));
 
     });
 
@@ -288,6 +261,91 @@ function listen(socket, window) {
 
                 break;
         }
+
+    });
+
+    socket.on("app:getServerVersions", function () {
+
+        const versions = fileManager.getAvailableVersions();
+
+        socket.emit("app_response:getServerVersions", versions);
+    });
+
+    socket.on("app:getDataRequest", function (res) {
+
+        switch (res.request) {
+            case "path":
+
+                dialog.showOpenDialog(window, { properties: ["openDirectory"] }).then(function (p) {
+
+                    socket.emit("app_response:getDataRequest", {
+                        data: p,
+                        req: res
+                    });
+
+                });
+
+
+                break;
+        }
+
+    });
+
+    socket.on("app:setDefaultBackground", function (src) {
+
+        const existingAppData = appData.initialize();
+
+        existingAppData.application.appearance.background.src = src;
+
+        appData.overWriteData(existingAppData);
+
+    });
+
+    socket.on("app:getImagesInDir", function () {
+
+        dialog.showOpenDialog(window, {
+            properties: ["openDirectory"]
+        }).then(function (res) {
+
+            const filePath = res.filePaths[0];
+
+            if (!fs.existsSync(filePath)) return;
+
+            const dirItems = fs.readdirSync(filePath),
+                sources = [];
+
+            dirItems.forEach(function (item) {
+
+                if (item.endsWith(".jpg") || item.endsWith(".png") || item.endsWith(".jpeg") || item.endsWith(".gif")) {
+
+                    const imageData = fs.readFileSync(path.join(filePath, item));
+
+                    sources.push({
+                        path: path.join(filePath, item),
+                        base64: "data:image/png;base64," + imageData.toString("base64")
+                    });
+
+                }
+
+            });
+
+            socket.emit("app_response:app:getImagesInDir", sources);
+        });
+
+    });
+
+    socket.on("app:getDefaultWallpaper", function () {
+
+        const existingAppData = appData.initialize();
+
+        if (!fs.existsSync(existingAppData.application.appearance.background.src)) return;
+
+        const imageData = fs.readFileSync(existingAppData.application.appearance.background.src);
+
+        socket.emit("app_response:getDefaultWallpaper", {
+            path: existingAppData.application.appearance.background.src,
+            data: "data:image/png;base64," + imageData.toString("base64")
+        });
 
     });
 }

@@ -22,7 +22,7 @@ async function init(callback) {
 
     if (!fs.existsSync(path.join(__dirname, "Runtime", "files.json"))) {
 
-        console.log("Cannot load files.json.".red);
+        errors.push("Cannot load files.json.");
 
         return;
     }
@@ -63,6 +63,8 @@ async function init(callback) {
             timestamp: Date.now()
         });
     }
+
+    return errors;
 }
 
 module.exports = {

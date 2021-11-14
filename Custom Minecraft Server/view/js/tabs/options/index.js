@@ -8,10 +8,19 @@ import { emit, listen } from "../../dynamic/socket.js";
 import { Toast } from "../../dynamic/toast.js";
 
 const mainApp = document.querySelector(".app"),
-    contentLoader = document.querySelector(".app-contentloader");
+    contentLoader = document.querySelector(".app-contentloader"),
+    appWallpaper = document.querySelector(".app-background img");
 
 
 window.addEventListener("load", function () {
+
+
+    emit("app:getDefaultWallpaper", location.href);
+
+    listen("app_response:getDefaultWallpaper", function (res) {
+
+        appWallpaper.src = res.data;
+    });
 
     emit("app:getServerState");
 

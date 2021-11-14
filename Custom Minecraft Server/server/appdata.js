@@ -144,9 +144,18 @@ function getFileLocation(location) {
     return path.join(appDataFolder, applicationName, location);
 }
 
+function removeAppdataContents() {
+
+    if (!fs.existsSync(path.join(appDataFolder, applicationName))) return new Error("Cannot find requested directory.");
+
+    fs.rmSync(path.join(appDataFolder, applicationName), {recursive: true, force: true});
+
+}
+
 module.exports = {
     initialize: initialize,
     overWriteData: overWriteData,
     getFileContents: getFileContents,
-    getFileLocation: getFileLocation
+    getFileLocation: getFileLocation,
+    removeAppdataContents: removeAppdataContents
 }

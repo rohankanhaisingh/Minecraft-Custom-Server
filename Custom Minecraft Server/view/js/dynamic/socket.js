@@ -1,6 +1,16 @@
 const io = require("socket.io-client");
 
-export const socket = io("http://localhost:8000");
+export const socket = io.connect("http://localhost:8000", {
+    reconnection: true,
+    reconnectionDelay: 500,
+    reconnectionDelayMax: 2000
+});
+
+socket.on("connect_error", function (err) {
+
+    location.href = location.href + "?" + err.message;
+
+});
 
 export function init() {
 
@@ -20,7 +30,7 @@ export function listen(event, callback) {
 
     socket.on(event, callback);
 
-    return event;
+    return socket;
 
 }
 

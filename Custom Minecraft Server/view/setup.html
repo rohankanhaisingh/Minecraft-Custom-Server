@@ -90,6 +90,10 @@
                             <span>Exit</span>
                         </div>
 
+                        <div class="quicklinks-link titlebar-button quicklink-app-exit" data-trigger="app:force_refresh">
+                            <span>Force refresh</span>
+                        </div>
+
                     </div>
 
                 </div>
@@ -109,6 +113,8 @@
                 </div>
             </div>
 
+            <div class="floatable-select-list hidden"></div>
+
             <!-- Centered wrapper -->
             <div class="content-wrapper">
 
@@ -118,45 +124,32 @@
 
                 <div class="table-wrapper">
 
-                    <div class="table-container" data-title="Server configurations">
+                    <div class="table-container" data-title="Server configuration">
                         <div class="table-navbar">
                             <div class="table-title">
-                                <span>Server configurations</span>
+                                <span>Server configuration</span>
                             </div>
                             <div class="table-togglebutton active"></div>
                         </div>
                         <div class="table-content">
-                            <h5>Settings to help the app know where the files are located. Items marked with a * are <strong>required</strong> to fill in. These can always be changed in the future.</h5>
+                            <h5>Settings to help the app know where the files are located. Items marked with a <strong>*</strong> are <strong>required</strong> to fill in. These can always be changed in the future.</h5>
+
 
                             <div class="table-item">
                                 <div class="item-title">
-                                    <span>Server path *</span>
+                                    <span>Server version *</span>
                                 </div>
-                                <div class="item-input" data-id="server:path" data-placeholder="Enter path here." contenteditable="true" spellcheck="false"></div>
+                                <div class="item-select server-version-dropdown" data-id="serverVersion">
+                                    <div class="select-value">
+                                        <span>1.17.1</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="table-item">
-                                <div class="item-title">
-                                    <span>Ngrok token *</span>
+                             <div class="table-item">
+                                <div class="item-title" title="This input-field is required to fill in. The application will install the required server files and extract it in a specific user-given directory.">
+                                    <span>Installation path *</span>
                                 </div>
-                                <div class="item-input" data-id="server:token" data-placeholder="Enter token here." contenteditable="true" spellcheck="false"></div>
-                            </div>
-                            <div class="table-item">
-                                <div class="item-title">
-                                    <span>Server name</span>
-                                </div>
-                                <div class="item-input" data-id="server:name" data-placeholder="Enter name here." contenteditable="true" spellcheck="false"></div>
-                            </div>
-                            <div class="table-item">
-                                <div class="item-title">
-                                    <span>Server owner</span>
-                                </div>
-                                <div class="item-input" data-id="server:owner" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false"></div>
-                            </div>
-                            <div class="table-item">
-                                <div class="item-title" title="MOTD stands for 'Match of the Day', displaying a nice description about your server.">
-                                    <span>Server MOTD</span>
-                                </div>
-                                <div class="item-input" data-id="server:motd" data-placeholder="Enter owner here." contenteditable="true" spellcheck="false">A server made by Babah Gee's Custom Minecraft Server.</div>
+                                <div class="item-input" data-id="serverInstallationPath" data-placeholder="Enter path here." data-request="path" contenteditable="true" spellcheck="false"></div>
                             </div>
                         </div>
                     </div>
@@ -166,9 +159,9 @@
                             <div class="table-title">
                                 <span>Application settings</span>
                             </div>
-                            <div class="table-togglebutton active"></div>
+                            <div class="table-togglebutton"></div>
                         </div>
-                        <div class="table-content">
+                        <div class="table-content hidden">
                             <h5>Applications settings you may wanna change. Items marked with a * are <strong>required</strong> to fill in. These can always be changed in the future.</h5>
 
                             <div class="table-item">
@@ -265,7 +258,7 @@
                                     <div class="grid-column-link">
                                         <span>MineFlayer</span>
                                     </div>
-                                </a> 
+                                </a>
                                 <a href="https://ci.md-5.net/job/BungeeCord/" target="_blank">
                                     <div class="grid-column-link">
                                         <span>BungeeCord</span>

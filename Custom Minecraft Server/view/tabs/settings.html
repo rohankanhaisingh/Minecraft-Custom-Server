@@ -39,10 +39,9 @@
     <link href="../styles/static/static.contentloader.css" rel="stylesheet" type="text/css" />
     <link href="../styles/static/static.toast.css" rel="stylesheet" type="text/css" />
 
-    <link href="../styles/tabs/main.css" type="text/css" rel="stylesheet" />
+    <link href="../styles/tabs/settings.css" type="text/css" rel="stylesheet" />
 
     <link href="../data/fonts/index.css" rel="stylesheet" type="text/css" />
-
 </head>
 <body>
     <div class="app electron-app minecraft-custom-server js --important --foreground">
@@ -51,7 +50,7 @@
             <div class="container">
                 <div class="app-wallpaper static-wallpaper electron-wallpaper visible">
                     <div class="container">
-                        <img src="../data/images/wallpapers/bg-wallpaper-mountain.jpg" alt="wallpaper" />
+                        <img src="../data/images/wallpapers/bg-wallpaper-mountain.jpg" alt="wallpaper" class="main-visible-background"/>
                     </div>
                 </div>
             </div>
@@ -74,7 +73,7 @@
                                     <div class="app-titlebar-vl"></div>
 
                                     <div class="app-titlebar-appversion">
-                                        <span>Version 0.1.0</span>
+                                        <span>Version 0.1.1</span>
                                     </div>
                                 </div>
 
@@ -118,15 +117,15 @@
                         <div class="container">
 
                             <!--<div class="app-toast">
-                    <div class="app-toast-title">An error has occurred.</div>
-                    <div class="app-toast-message">Failed to launch server.</div>
-                    <div class="app-toast-detail">There is no memory left for the server to operate. Please lower the provided memory usage.</div>
-                </div>-->
+                                <div class="app-toast-title">An error has occurred.</div>
+                                <div class="app-toast-message">Failed to launch server.</div>
+                                <div class="app-toast-detail">There is no memory left for the server to operate. Please lower the provided memory usage.</div>
+                            </div>-->
 
                         </div>
                     </div>
 
-                    <div class="app-contentloader visible">
+                    <div class="app-contentloader">
                         <div class="container">
 
                             <canvas class="contentloader-canvas"></canvas>
@@ -139,9 +138,11 @@
                     <div class="app-navigation">
                         <div class="navigation-links">
 
-                            <div class="navigation-link active button-serveroverview" data-title="Server overview">
-                                <img src="../data/icons/icon_power.png" alt="Server" />
-                            </div>
+                            <a href="index.html">
+                                <div class="navigation-link" data-title="Server overview">
+                                    <img src="../data/icons/icon_power.png" alt="Server" />
+                                </div>
+                            </a>
                             <a href="./options.html">
                                 <div class="navigation-link" data-title="Options">
                                     <img src="../data/icons/icon_sliders.png" alt="Options" />
@@ -158,11 +159,9 @@
                             <div class="navigation-link" data-title="Server files">
                                 <img src="../data/icons/icon_files.png" alt="Server files" />
                             </div>
-                            <a href="settings.html">
-                                <div class="navigation-link" data-title="Settings">
-                                    <img src="../data/icons/icon_settings.png" alt="Settings" />
-                                </div>
-                            </a>
+                            <div class="navigation-link active" data-title="Settings">
+                                <img src="../data/icons/icon_settings.png" alt="Settings" />
+                            </div>
 
                         </div>
                     </div>
@@ -171,115 +170,105 @@
 
                         <div class="app-tabcontent-header">
 
-                            <h1 class="tab-name">Server overview</h1>
+                            <h1 class="tab-name">Settings</h1>
 
-                            <h4 class="tab-description">This is the overview tab. Here you can change general settings like the name of your server. Start your server and make it public by using Ngrok or your forwarded IP. If you are not sure what these settings do, feel free to contact the application developer!</h4>
+                            <h4 class="tab-description">This is the settings tab. In this tab, you can tweak every existing setting you'd like to change.</h4>
 
-                        </div>
-
-                        <h1 contenteditable="true" class="server-name" spellcheck="false">Ayo! The pizza here!</h1>
-                        <h3 class="server-status" spellcheck="false">Server status: <strong class="offline">offline</strong></h3>
-
-                        <div class="app-tabcontent-hl"></div>
-
-                        <div class="server-startbutton">
-                            <span>Start</span>
                         </div>
 
                         <div class="app-tabcontent-groups">
 
-                            <div class="app-tabcontent-group" data-id="launch">
+                            <div class="app-tabcontent-group" data-id="App background">
 
                                 <div class="tabcontent-group-titlebar">
                                     <div class="tabcontent-group-titlebar-title">
-                                        <span>Launch settings</span>
+                                        <span>Application background</span>
                                     </div>
                                     <div class="tabcontent-group-titlebar-toggle active"></div>
                                 </div>
 
                                 <div class="tabcontent-group-content">
 
-                                    <div class="group-content-item" data-name="hostingMethod">
-                                        <div class="group-content-title">
-                                            <span>Public hosting method:</span>
+
+                                    <div class="settings-wallpaper-grid">
+
+                                        <div class="settings-wallpaper-grid-images">
+
+                                            <div class="settings-wallpaper-grid-item">
+                                                <img src="../data/images/wallpapers/bg-wallpaper-main.jpg" data-path="../data/images/wallpapers/bg-wallpaper-main.jpg" data alt="Mountain Wallpaper" />
+                                            </div>
+                                            <div class="settings-wallpaper-grid-item active">
+                                                <img src="../data/images/wallpapers/bg-wallpaper-mountain.jpg" data-path="../data/images/wallpapers/bg-wallpaper-mountain.jpg" alt="bruh" />
+                                            </div>
+                                            <div class="settings-wallpaper-grid-item">
+                                                <img src="../data/images/wallpapers/europe.jpg" data-path="../data/images/wallpapers/europe.jpg" alt="From https://eskipaper.com/" />
+                                            </div>
+                                            <div class="settings-wallpaper-grid-item">
+                                                <img src="../data/images/wallpapers/ecqwer343E43Q.jpg" data-path="../data/images/wallpapers/ecqwer343E43Q.jpg" alt="From https://eskipaper.com/" />
+                                            </div>
+
                                         </div>
-                                        <div class="group-content-toggle disabled" data-value="Ngrok">
-                                            <div class="toggle-value">Local IP</div>
-                                            <div class="toggle-value active">Ngrok</div>
-                                        </div>
+
+                                        <div class="settings-wallpaper-grid-item button-add button-wallpaper-add"></div>
+
                                     </div>
 
-                                    <div class="group-content-item" data-name="ramUsage">
+                                    <div class="group-content-item">
                                         <div class="group-content-title">
-                                            <span>RAM usage (gb):</span>
+                                            <span>Image size:</span>
                                         </div>
-                                        <div class="group-content-toggle" data-value="Automatic">
+                                        <div class="group-content-toggle" data-value="Automatic" data-id="imageSize">
                                             <div class="toggle-value active">Automatic</div>
-                                            <div class="toggle-value">Manual</div>
+                                            <div class="toggle-value">Fit to size</div>
                                         </div>
-                                        <div class="group-content-range">
-                                            <input type="range" value="1" min="1" max="20" data-send=".range-output-ramusage" />
-                                            <div class="range-value range-output-ramusage">1</div>
+                                    </div>
+                                    <div class="group-content-item">
+                                        <div class="group-content-title">
+                                            <span>Animate on launch:</span>
+                                        </div>
+                                        <div class="group-content-toggle" data-value="Enabled" data-id="animateOnLaunch">
+                                            <div class="toggle-value active">Enabled</div>
+                                            <div class="toggle-value">Disabled</div>
                                         </div>
                                     </div>
 
-                                    <div class="group-content-item" data-name="maxPlayers">
-                                        <div class="group-content-title">
-                                            <span>Maximum players:</span>
-                                        </div>
-                                        <div class="group-content-number">
-                                            <input type="number" value="10" min="1" autocomplete="off" spellcheck="false" />
-                                        </div>
-                                    </div>
 
                                 </div>
 
                             </div>
 
-                            <div class="app-tabcontent-group" data-id="game">
+                            <div class="app-tabcontent-group" data-id="Ngrok Settings">
 
                                 <div class="tabcontent-group-titlebar">
                                     <div class="tabcontent-group-titlebar-title">
-                                        <span>In-game settings</span>
+                                        <span>Ngrok Settings</span>
                                     </div>
                                     <div class="tabcontent-group-titlebar-toggle active"></div>
                                 </div>
 
-                                <div class="tabcontent-group-content">
+                                <div class="tabcontent-group-content">        
 
-                                    <div class="group-content-item" data-name="inGameBot">
+                                    <div class="group-content-item">
                                         <div class="group-content-title">
-                                            <span>In-game bot:</span>
+                                            <span>Ngrok token:</span>
                                         </div>
-                                        <div class="group-content-toggle disabled" data-value="Enabled">
+                                        <div class="group-content-input" data-placeholder="Enter your ngrok token" contenteditable="true" spellcheck="false" autocomplete="false" data-id="imageSize"></div>
+                                    </div>
+                                    <div class="group-content-item">
+                                        <div class="group-content-title">
+                                            <span>Animate on launch:</span>
+                                        </div>
+                                        <div class="group-content-toggle" data-value="Enabled" data-id="animateOnLaunch">
                                             <div class="toggle-value active">Enabled</div>
                                             <div class="toggle-value">Disabled</div>
                                         </div>
                                     </div>
 
-                                    <div class="group-content-item" data-name="autoSave">
-                                        <div class="group-content-title">
-                                            <span>Auto save:</span>
-                                        </div>
-                                        <div class="group-content-toggle disabled" data-value="Enabled">
-                                            <div class="toggle-value active">Enabled</div>
-                                            <div class="toggle-value">Disabled</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="group-content-item" data-name="showServerLogs">
-                                        <div class="group-content-title">
-                                            <span>Show server logs:</span>
-                                        </div>
-                                        <div class="group-content-toggle disabled" data-value="Enabled">
-                                            <div class="toggle-value">Enabled</div>
-                                            <div class="toggle-value active">Disabled</div>
-                                        </div>
-                                    </div>
 
                                 </div>
 
                             </div>
+
 
                         </div>
 
@@ -383,6 +372,6 @@
 
     </div>
 
-    <script src="../js/tabs/main/index.js" type="module"></script>
+    <script src="../js/tabs/settings/index.js" type="module"></script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+=============== BUG FIXES ===============
+
+1. Loader stuck on loading mode when launching the server.
+2. Untracable bug, 'newData is not defined'.
+
+=============== DESIGN FIXES ===============
+
+1. Compact view for larger screens.
+2. Changing text visibility.
+3. Change setup ux style.
+
+=============== NEW UPDATES ===============
+
+1. Create filesystem using MegaNZ
