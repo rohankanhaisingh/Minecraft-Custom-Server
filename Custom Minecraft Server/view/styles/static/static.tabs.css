@@ -437,6 +437,8 @@
     font-size: 12px;
     color: #000;
     line-height: 20px;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 

@@ -1,4 +1,5 @@
 import { emit, listen } from "../../dynamic/socket.js";
+import { Toast } from "../../dynamic/toast.js";
 
 const mainApp = document.querySelector(".app"),
     contentLoader = document.querySelector(".app-contentloader"),
@@ -6,7 +7,8 @@ const mainApp = document.querySelector(".app"),
     tabGroups = document.querySelectorAll(".app-tabcontent-group"),
     gridTiles = document.querySelectorAll(".settings-wallpaper-grid-item"),
     appWallpaper = document.querySelector("img.main-visible-background"),
-    addWallpaperButton = document.querySelector(".button-wallpaper-add");
+    addWallpaperButton = document.querySelector(".button-wallpaper-add"),
+    applyNgrokTokenButton = document.querySelector(".button-save-ngrok-token");
 
 gridTiles.forEach(function (tile) {
 
@@ -25,6 +27,19 @@ gridTiles.forEach(function (tile) {
         emit("app:setDefaultBackground", tileImage.getAttribute("data-path"));
 
     });
+
+});
+
+applyNgrokTokenButton.addEventListener("click", function (e) {
+
+    const targettedInputfield = document.querySelector(".field-ngrok-token");
+
+    emit("app:setNgrokToken", targettedInputfield.innerText);
+});
+
+listen("app_response:setNgrokToken", function (res) {
+
+    new Toast("Minecraft: Custom Server", "Token saved", `Token '${res}' has been succesfully saved.`, 5000).Show();
 
 });
 

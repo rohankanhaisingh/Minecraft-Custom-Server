@@ -11,7 +11,8 @@ const mainApp = document.querySelector(".app"),
     contentLoader = document.querySelector(".app-contentloader"),
     toggleButtons = document.querySelectorAll(".group-content-toggle"),
     tabGroups = document.querySelectorAll(".app-tabcontent-group"),
-    appWallpaper = document.querySelector("img.main-visible-background");
+    appWallpaper = document.querySelector("img.main-visible-background"),
+    inputFields = document.querySelectorAll(".group-content-input");
 
 tabGroups.forEach(function (group) {
 
@@ -89,9 +90,40 @@ toggleButtons.forEach(function (button) {
 
 });
 
+inputFields.forEach(function (field) {
+
+    field.addEventListener("keydown", function (e) {
+
+        switch (e.keyCode) {
+            case 13:
+
+                e.preventDefault();
+                break;
+        }
+
+    });
+
+    field.addEventListener("paste", function (e) {
+        event.preventDefault();
+
+        const text = event.clipboardData.getData('text/plain');
+
+        document.execCommand('insertText', false, text);
+    });
+
+});
+
 window.addEventListener("load", function () {
 
     emit("app:getDefaultWallpaper", location.href);
+
+    emit("app:getAppDataContents");
+
+    listen("app_response:getAppDataContents", function (res) {
+
+        document.querySelector(".field-ngrok-token").innerText = res.server.token === null ? "" : res.server.token;
+
+    });
 
     listen("app_response:getDefaultWallpaper", function (res) {
 

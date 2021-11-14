@@ -348,6 +348,25 @@ async function listen(socket, window) {
         });
 
     });
+
+    socket.on("app:setNgrokToken", function (token) {
+
+        const existingData = appData.initialize();
+
+        existingData.server.token = token === "" ? null : token;
+
+        appData.overWriteData(existingData);
+
+        socket.emit("app_response:setNgrokToken", token);
+    });
+
+    socket.on("app:getAppDataContents", function (req) {
+
+        const data = appData.initialize();
+
+        socket.emit("app_response:getAppDataContents", data);
+
+    });
 }
 
 module.exports = {
